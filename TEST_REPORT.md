@@ -147,3 +147,23 @@ The static storefront, responsive layouts, shared interactions, contact handoff,
 unconfigured fallback states pass local QA in Chrome. The site is not yet verified as a
 live ordering system because Supabase credentials, business catalogue data, and deployed
 hosting details are still missing.
+
+
+## UI and SQL hardening follow-up — 28 October 2026
+
+Changes on branch `ui/premium-hero-logo-refinement`:
+
+- Removed the duplicate logo card from the homepage hero; the shared header remains the single primary public-site logo placement.
+- Removed the repeated logo image from the public footer while retaining the text wordmark and tagline.
+- Updated the hero headline to “The Soul of Indian Flavour.” and the primary CTA to “Explore the Collection”.
+- Repositioned mobile hero content to the lower safe area after removing the logo card; desktop video negative space is preserved.
+- Hardened the SQL setup by revoking unneeded `CREATE` permission on the exposed `public` schema from `PUBLIC`, `anon`, and `authenticated`, and explicitly qualifying temporary order-table references with `pg_temp`.
+
+### Source-level regression checks for this follow-up
+
+- JavaScript parse check passed for `common.js`, `checkout.js`, `cart.js`, `whatsapp.js`, and `supabase-client.js`.
+- CSS brace-balance check passed for `components.css`, `desktop.css`, and `mobile.css`.
+- Source assertions passed for hero-card removal, new headline, footer logo removal, retained desktop/mobile video paths, continued `create_order` use, and presence of RLS/admin authorization in the SQL schema.
+- SQL source assertions passed for the new schema permission restriction and explicitly qualified temporary order tables.
+
+A fresh browser screenshot sweep and live Supabase integration test were not run for this follow-up. The previous browser results above describe the earlier repository revision, so re-run responsive visual tests after checking out this branch. Live Supabase testing still requires real project configuration and product data.
