@@ -2,19 +2,23 @@
   "use strict";
 
   const Kayam = window.Kayam;
+  function pexelsImageUrl(id, width) {
+    return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${width || 1400}`;
+  }
+
   const categoryImages = {
-    "spice-powders": "assets/images/category-spice-powders.jpg",
-    "traditional-masalas": "assets/images/category-traditional-masalas.jpg",
-    premixes: "assets/images/category-premixes.jpg",
-    "cooking-masalas": "assets/images/category-cooking-masalas.jpg",
-    "podi-chutney-powders": "assets/images/category-podi-chutney.jpg",
+    "spice-powders": { src: pexelsImageUrl(6808976, 1600), alt: "A colourful display of red, orange, and yellow spice powders in round bowls." },
+    "traditional-masalas": { src: pexelsImageUrl(4871347, 1600), alt: "A stone mortar and pestle with whole spices on a wooden surface." },
+    premixes: { src: pexelsImageUrl(5504609, 1600), alt: "Pyramids of coloured spice powders displayed at a spice market." },
+    "cooking-masalas": { src: pexelsImageUrl(20408461, 1600), alt: "An Indian curry dish served with bowls of spices and herbs." },
+    "podi-chutney-powders": { src: pexelsImageUrl(32144893, 1600), alt: "A bowl of ground spice blend surrounded by nuts and dried red chillies." },
   };
 
   function categoryMarkup(category, count) {
-    const image = categoryImages[category.slug] || "assets/images/category-spice-powders.jpg";
+    const image = categoryImages[category.slug] || categoryImages["spice-powders"];
     const countLabel = count === 1 ? "1 product" : `${count} products`;
     return `<a class="category-card" href="shop.html?category=${encodeURIComponent(category.slug)}" data-reveal>
-      <img src="${image}" alt="" width="900" height="600" loading="lazy" decoding="async">
+      <img src="${Kayam.escapeHTML(image.src)}" alt="${Kayam.escapeHTML(image.alt)}" width="900" height="600" loading="lazy" decoding="async">
       <span class="category-card__content">
         <span class="category-card__count">${Kayam.escapeHTML(countLabel)}</span>
         <span class="category-card__title">${Kayam.escapeHTML(category.name)}</span>

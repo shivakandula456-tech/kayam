@@ -16,7 +16,7 @@ collected by this website.
 - `assets/js/config.js` still contains Supabase placeholders, so live catalogue,
   authentication, order, and admin operations are not yet connected.
 - While Supabase is unconfigured, the storefront uses a local 11-product catalogue with five categories. Prices, weights, stock and ingredients remain unconfigured; Add to Cart stays unavailable until real variants are published.
-- Product artwork is stored locally in `assets/images/products/`. These are custom illustrations for the pre-integration phase, not photos of finished KAYAM packaging. Replace them with approved product photos when available.
+- Product/category photography is mapped in `assets/js/catalogue.js` and `assets/js/home.js`; stock sources and licence notes are recorded in `IMAGE_SOURCE_MANIFEST.md`. Product photos are ingredient/food-context photography, not photos of finished KAYAM packaging.
 - When Supabase is configured, its live catalogue is authoritative. A configured-but-failing request shows an error rather than falling back to stale static data. Local artwork remains a temporary image fallback until a live product image is uploaded.
 - Product weights, prices, stock, descriptions, ingredients, and images have not been
   fabricated. Add confirmed business data through the administrator area.
@@ -218,3 +218,12 @@ console messages, and remaining unverified paths.
 - Polished header scroll state, interactions, category cards, product cards, search fields, and responsive shop toolbar spacing.
 - The shop filter panel and price/newest sort choices are hidden or reset when the catalogue does not yet contain the data those controls require.
 - No framework, build step, custom backend or database changes were added.
+
+
+## Stock photography and image de-duplication — 28 October 2026
+
+- Replaced the five homepage category cards with five distinct Pexels stock photographs. Each source is different and none comes from the hero film or its extracted frames.
+- Replaced the 11 product SVG illustrations with stock photographs selected for the spice, ingredient, spice-blend or dish context.
+- Replaced the old story images, including the visible hero-frame image. The homepage story and two story-page photographs now each use a different stock photo, none from the hero film.
+- Stock image URLs are served from the Pexels CDN with image-resizing/compression parameters. Creator, source page, usage and licence reference are tracked in `IMAGE_SOURCE_MANIFEST.md`.
+- These photos represent ingredients or food context, not KAYAM-branded packages or a verified recipe formula. The Groundnut Chutney Powder stock photo depicts whole groundnuts as an ingredient reference.

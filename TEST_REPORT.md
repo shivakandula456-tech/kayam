@@ -188,3 +188,13 @@ A fresh browser screenshot sweep and live Supabase integration test were not run
 - Reviewed responsive CSS changes for desktop/tablet/mobile breakpoints, safe-area spacing on mobile, reduced-motion handling and mobile toast placement above the fixed navigation.
 - Added conditional shop controls so price-range/availability filters do not appear without product variants, and price/newest sorting is unavailable until matching data exists.
 - Visual browser QA at real viewport widths and keyboard/screen-reader testing remain outstanding; source checks alone do not establish rendered layout quality.
+
+
+## Stock photo replacement and de-duplication — 28 October 2026
+
+- Updated the five homepage category image mappings to five unique Pexels photo IDs.
+- Updated all 11 static product image mappings to 11 unique photo IDs; the category, product and story placements use 19 unique source IDs in total.
+- Replaced the story page's hero-frame image and the previous kitchen image. The home story and two story-page photographs now use different stock photos, none from the hero film.
+- Added `IMAGE_SOURCE_MANIFEST.md` with image placement, creator, Pexels source page and licence reference.
+- Source-level checks: JavaScript syntax checks; unique-source-ID check; no repeated hero-frame/category SVG references in public source; five category mappings; 11 product mappings and three story image references.
+- Browser rendering, live image-network requests and mobile/desktop crop review remain outstanding; Pexels CDN availability is external to GitHub Pages.
