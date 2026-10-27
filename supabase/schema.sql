@@ -1,6 +1,9 @@
 create extension if not exists pgcrypto;
 create sequence if not exists public.order_reference_seq start with 1;
 
+-- Public storefront roles need schema usage, but never object-creation privileges.
+revoke create on schema public from public, anon, authenticated;
+
 create table if not exists public.categories (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(btrim(name)) between 1 and 120),
@@ -275,7 +278,7 @@ begin
   ) on commit drop;
 
   begin
-    insert into _kayam_order_input (product_id, variant_id, quantity)
+    insert into pg_temp._kayam_order_input (product_id, variant_id, quantity)
     select product_id, variant_id, quantity
     from jsonb_to_recordset(p_items) as item(product_id uuid, variant_id uuid, quantity integer);
   exception
@@ -283,14 +286,14 @@ begin
       raise exception 'INVALID_ITEMS: The selected products and quantities are invalid.';
   end;
 
-  select count(*) into v_input_count from _kayam_order_input;
+  select count(*) into v_input_count from pg_temp._kayam_order_input;
   if v_input_count = 0 or v_input_count > 50 then
     raise exception 'INVALID_ITEMS: An order must contain between 1 and 50 line items.';
   end if;
 
   if exists (
     select 1
-    from _kayam_order_input
+    from pg_temp._kayam_order_input
     where product_id is null
        or variant_id is null
        or quantity is null
@@ -302,7 +305,7 @@ begin
 
   if exists (
     select 1
-    from _kayam_order_input
+    from pg_temp._kayam_order_input
     group by variant_id
     having count(*) > 1
   ) then
@@ -311,7 +314,7 @@ begin
 
   if exists (
     select 1
-    from _kayam_order_input i
+    from pg_temp._kayam_order_input i
     left join public.product_variants v on v.id = i.variant_id
     left join public.products p on p.id = i.product_id
     where v.id is null
@@ -350,7 +353,7 @@ begin
       v.is_active as variant_is_active,
       v.weight_value,
       v.weight_unit
-    from _kayam_order_input i
+    from pg_temp._kayam_order_input i
     join public.product_variants v on v.id = i.variant_id
     join public.products p on p.id = i.product_id
     order by v.id
@@ -404,7 +407,7 @@ begin
     v_line_total := round(v_variant.quantity * v_effective_price, 2);
     v_subtotal := v_subtotal + v_line_total;
 
-    insert into _kayam_order_line (
+    insert into pg_temp._kayam_order_line (
       product_id,
       variant_id,
       product_name,
@@ -425,7 +428,7 @@ begin
     );
   end loop;
 
-  select count(*) into v_line_count from _kayam_order_line;
+  select count(*) into v_line_count from pg_temp._kayam_order_line;
   if v_line_count <> v_input_count then
     raise exception 'ITEM_UNAVAILABLE: One or more selected products or weights are unavailable.';
   end if;
@@ -480,7 +483,7 @@ begin
     l.unit_price,
     l.line_total,
     l.stock_tracked
-  from _kayam_order_line l;
+  from pg_temp._kayam_order_line l;
 
   return public.order_response(v_order_id);
 end;
