@@ -627,14 +627,6 @@
   content: "";
 }
 
-.hero__brand-card {
-  display: none;
-}
-
-.hero__brand-card img {
-  width: 100%;
-  border-radius: 5px;
-}
 
 .hero__media-control {
   position: absolute;

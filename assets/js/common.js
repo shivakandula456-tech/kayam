@@ -331,7 +331,6 @@
       <div class="container footer-main">
         <div class="footer-brand">
           <div class="footer-brand__lockup">
-            <img class="footer-brand__logo" src="assets/images/kayam-logo-mark.jpg" alt="" width="54" height="60" loading="lazy">
             <div>
               <div class="footer-brand__name">KAYAM SPICES</div>
               <div class="footer-brand__tag">The Authentic Taste of Nature</div>
