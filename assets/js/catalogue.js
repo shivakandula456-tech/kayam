@@ -8,6 +8,30 @@
   let cachedAt = 0;
   const CACHE_MS = 60000;
 
+  // Temporary, local-only catalogue used until Supabase is configured.
+  // Prices, weights, stock and ingredient lists are intentionally not invented.
+  const STATIC_CATEGORIES = [
+    { id: "static-category-spice-powders", name: "Spice Powders", slug: "spice-powders", description: "Everyday spice powders for Indian kitchens.", is_active: true, display_order: 1 },
+    { id: "static-category-traditional-masalas", name: "Traditional Masalas", slug: "traditional-masalas", description: "Traditional blends for familiar home cooking.", is_active: true, display_order: 2 },
+    { id: "static-category-premixes", name: "Premixes", slug: "premixes", description: "Convenient premixes for everyday meals.", is_active: true, display_order: 3 },
+    { id: "static-category-cooking-masalas", name: "Cooking Masalas", slug: "cooking-masalas", description: "Masalas for curries, biryanis, and special dishes.", is_active: true, display_order: 4 },
+    { id: "static-category-podi-chutney-powders", name: "Podi & Chutney Powders", slug: "podi-chutney-powders", description: "Podi and chutney powders to serve alongside meals.", is_active: true, display_order: 5 },
+  ];
+
+  const STATIC_PRODUCTS = [
+    { slug: "chilli-powder", name: "Chilli Powder", category_slug: "spice-powders", short_description: "A pantry staple for adding colour and heat to everyday recipes.", description: "Chilli Powder from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: true, display_order: 1, imagePath: "assets/images/products/chilli-powder.svg", altText: "Illustrative artwork of red chilli powder with dried chillies." },
+    { slug: "turmeric-powder", name: "Turmeric Powder", category_slug: "spice-powders", short_description: "A golden spice for curries, dals and everyday cooking.", description: "Turmeric Powder from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: true, display_order: 2, imagePath: "assets/images/products/turmeric-powder.svg", altText: "Illustrative artwork of golden turmeric powder and turmeric roots." },
+    { slug: "goda-masala", name: "Goda Masala", category_slug: "traditional-masalas", short_description: "A traditional Maharashtrian-style blend for home cooking.", description: "Goda Masala from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: true, display_order: 3, imagePath: "assets/images/products/goda-masala.svg", altText: "Illustrative artwork of a dark roasted-style masala blend with whole spices." },
+    { slug: "sambar-premix", name: "Sambar Premix", category_slug: "premixes", short_description: "A convenient premix for preparing sambar at home.", description: "Sambar Premix from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: false, display_order: 4, imagePath: "assets/images/products/sambar-premix.svg", altText: "Illustrative artwork of orange sambar premix with curry leaves and lentils." },
+    { slug: "rasam-premix", name: "Rasam Premix", category_slug: "premixes", short_description: "A spice premix for a familiar South Indian rasam preparation.", description: "Rasam Premix from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: false, display_order: 5, imagePath: "assets/images/products/rasam-premix.svg", altText: "Illustrative artwork of red-brown rasam premix with pepper and curry leaves." },
+    { slug: "chicken-masala", name: "Chicken Masala", category_slug: "cooking-masalas", short_description: "A spice blend for chicken curries and home-style dishes.", description: "Chicken Masala from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: false, display_order: 6, imagePath: "assets/images/products/chicken-masala.svg", altText: "Illustrative artwork of chicken masala with cinnamon and whole spices." },
+    { slug: "meat-masala", name: "Meat Masala", category_slug: "cooking-masalas", short_description: "A warming masala blend for meat-based recipes.", description: "Meat Masala from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: false, display_order: 7, imagePath: "assets/images/products/meat-masala.svg", altText: "Illustrative artwork of a dark meat masala blend with peppercorns and spice sticks." },
+    { slug: "biryani-masala", name: "Biryani Masala", category_slug: "cooking-masalas", short_description: "An aromatic blend for preparing home-style biryani.", description: "Biryani Masala from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: true, display_order: 8, imagePath: "assets/images/products/biryani-masala.svg", altText: "Illustrative artwork of biryani masala with cinnamon and cardamom." },
+    { slug: "garlic-podi", name: "Garlic Podi", category_slug: "podi-chutney-powders", short_description: "A savoury podi for serving with everyday meals.", description: "Garlic Podi from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: false, display_order: 9, imagePath: "assets/images/products/garlic-podi.svg", altText: "Illustrative artwork of garlic podi with a garlic bulb and green leaves." },
+    { slug: "gunpowder-podi", name: "Gunpowder Podi", category_slug: "podi-chutney-powders", short_description: "A bold podi traditionally served alongside rice, idli or dosa.", description: "Gunpowder Podi from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: false, display_order: 10, imagePath: "assets/images/products/gunpowder-podi.svg", altText: "Illustrative artwork of red gunpowder podi with dried chillies and lentils." },
+    { slug: "groundnut-chutney-powder", name: "Groundnut Chutney Powder", category_slug: "podi-chutney-powders", short_description: "A groundnut-style chutney powder for everyday meals and snacks.", description: "Groundnut Chutney Powder from the KAYAM SPICES pantry. Final weight options, price, stock and product details will be published when confirmed.", is_featured: false, display_order: 11, imagePath: "assets/images/products/groundnut-chutney-powder.svg", altText: "Illustrative artwork of groundnut chutney powder with roasted peanuts." },
+  ];
+
   class CatalogueError extends Error {
     constructor(message, code, original) {
       super(message);
@@ -26,7 +50,9 @@
 
   function normalizeImage(image) {
     const storagePath = image.storage_path || "";
-    const url = window.KayamDB ? window.KayamDB.getPublicImageUrl(storagePath) : "";
+    // Local product artwork is used for static mode and until a live product image is uploaded.
+    const localUrl = typeof image.local_url === "string" ? image.local_url : "";
+    const url = localUrl || (window.KayamDB ? window.KayamDB.getPublicImageUrl(storagePath) : "");
     return {
       id: image.id,
       storagePath,
@@ -70,7 +96,18 @@
       })
       .map(normalizeVariant)
       .sort(sortByOrder);
-    const images = (product.product_images || []).map(normalizeImage).sort(sortByOrder);
+    const storedImages = Array.isArray(product.product_images) ? product.product_images : [];
+    const localProduct = STATIC_PRODUCTS.find((item) => item.slug === product.slug);
+    const fallbackImages = localProduct
+      ? [{
+          id: `local-${localProduct.slug}`,
+          storage_path: "",
+          local_url: localProduct.imagePath,
+          alt_text: localProduct.altText,
+          display_order: 0,
+        }]
+      : [];
+    const images = (storedImages.length ? storedImages : fallbackImages).map(normalizeImage).sort(sortByOrder);
     const availableVariants = variants.filter(function (variant) {
       return variant.inStock;
     });
@@ -113,13 +150,35 @@
     };
   }
 
+  function buildStaticCatalogue() {
+    const categories = STATIC_CATEGORIES.map(normalizeCategory);
+    const categoriesBySlug = new Map(categories.map((category) => [category.slug, category]));
+    const products = STATIC_PRODUCTS.map(function (item) {
+      const category = categoriesBySlug.get(item.category_slug);
+      return normalizeProduct({
+        ...item,
+        id: `static-${item.slug}`,
+        category_id: category ? category.id : null,
+        categories: category ? {
+          id: category.id,
+          name: category.name,
+          slug: category.slug,
+          is_active: true,
+        } : null,
+        is_active: true,
+        product_variants: [],
+        product_images: [],
+      });
+    });
+    return { categories, products, source: "static" };
+  }
+
   async function fetchCatalogue(options) {
     const opts = options || {};
     if (!window.KayamDB || !window.KayamDB.isConfigured()) {
-      throw new CatalogueError(
-        "The online catalogue is not connected yet. Add the Supabase project URL and public anon key in assets/js/config.js.",
-        "NOT_CONFIGURED",
-      );
+      // Keep the storefront populated before Supabase is configured.
+      // A configured-but-failing Supabase request still shows an error; it never falls back to stale data.
+      return buildStaticCatalogue();
     }
     const client = window.KayamDB.getClient();
     const categoryRequest = client

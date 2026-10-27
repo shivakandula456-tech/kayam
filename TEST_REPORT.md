@@ -167,3 +167,15 @@ Changes on branch `ui/premium-hero-logo-refinement`:
 - SQL source assertions passed for the new schema permission restriction and explicitly qualified temporary order tables.
 
 A fresh browser screenshot sweep and live Supabase integration test were not run for this follow-up. The previous browser results above describe the earlier repository revision, so re-run responsive visual tests after checking out this branch. Live Supabase testing still requires real project configuration and product data.
+
+
+## Static catalogue phase — 28 October 2026
+
+- Added a local static catalogue manifest for all 11 client-provided products across the existing five categories.
+- Added product-specific local SVG illustrations at `assets/images/products/<slug>.svg`. These are bespoke illustrative assets, not photographs of the finished KAYAM SPICES packages; replace them with approved product photography when available.
+- Before Supabase is configured, the storefront now loads the local catalogue with prices, weights, stock and ingredient lists intentionally unset. Product cards show “Pricing to be confirmed”; product detail pages offer WhatsApp enquiry; Add to Cart remains unavailable until valid database-managed variants are configured.
+- When Supabase is configured, the live database remains the source of truth. A configured-but-failing request continues to show the existing catalogue error rather than silently switching to static data.
+- When a live product has no uploaded image yet, the product-specific local illustration remains as a temporary image fallback. Once a Supabase product image exists, it takes precedence.
+- Existing cart, order-creation RPC, WhatsApp ordering, administrator code, and SQL schema were not changed in this phase.
+- Validation planned/performed for this phase: JavaScript parse check; static-mode catalogue smoke test for product/category counts, slugs, images, no variants/prices, and configured-Supabase error behaviour; local image-path existence and SVG source checks.
+- A full rendered browser sweep and live Supabase integration test still require a browser run and configured Supabase project.
