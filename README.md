@@ -208,3 +208,13 @@ checkout request is retried.
 
 See `TEST_REPORT.md` for the exact local test scope, results, expected development
 console messages, and remaining unverified paths.
+
+
+## Premium Heritage 2.0 UI refresh — 28 October 2026
+
+- The shared public header uses a sticky outer mount so the announcement can scroll off while the navigation remains available; dismissing the announcement restores the header's correct sticky offset.
+- Added a desktop Shop category mega-menu and a category group inside the mobile drawer.
+- Added a mobile-only, fixed quick-navigation bar for Home, Shop, WhatsApp and Bag, with safe-area padding and cart-count support.
+- Polished header scroll state, interactions, category cards, product cards, search fields, and responsive shop toolbar spacing.
+- The shop filter panel and price/newest sort choices are hidden or reset when the catalogue does not yet contain the data those controls require.
+- No framework, build step, custom backend or database changes were added.

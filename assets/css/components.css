@@ -3184,3 +3184,233 @@
     display: none !important;
   }
 }
+
+
+/* Premium Heritage 2.0 — shared navigation and interaction polish */
+#site-header {
+  --announcement-height: 34px;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+}
+#site-header.has-announcement {
+  top: calc(var(--announcement-height) * -1);
+}
+.site-header {
+  position: relative;
+  top: auto;
+  background: rgba(19, 50, 36, 0.97);
+  box-shadow: 0 1px 0 rgba(250, 246, 238, 0.08);
+  transition: background 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+.site-header.is-scrolled {
+  background: rgba(13, 40, 28, 0.985);
+  box-shadow: 0 12px 34px rgba(9, 24, 16, 0.16);
+}
+.header-inner {
+  transition: min-height 220ms var(--ease), gap 220ms var(--ease);
+}
+.site-header.is-scrolled .header-inner {
+  min-height: calc(var(--header-height) - 8px);
+}
+.header-action {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  transition: background 180ms var(--ease), border-color 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
+}
+.header-action:hover {
+  transform: translateY(-1px);
+  border-color: rgba(234, 216, 174, 0.28);
+  background: rgba(250, 246, 238, 0.07);
+  color: var(--gold-soft);
+}
+.brand__logo {
+  transition: border-radius 220ms var(--ease), transform 220ms var(--ease);
+}
+.brand:hover .brand__logo {
+  transform: translateY(-1px);
+  border-radius: 14px;
+}
+.primary-nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.primary-nav__item--shop > .primary-nav__link {
+  gap: 0.6rem;
+}
+.primary-nav__caret {
+  width: 7px;
+  height: 7px;
+  margin-top: -4px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 180ms var(--ease), color 180ms var(--ease);
+}
+.primary-nav__item--shop:hover .primary-nav__caret,
+.primary-nav__item--shop:focus-within .primary-nav__caret {
+  color: var(--gold-soft);
+  transform: translateY(3px) rotate(225deg);
+}
+.category-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: calc(var(--z-header) + 2);
+  display: grid;
+  width: min(560px, 78vw);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem;
+  margin: 0;
+  padding: 1.1rem;
+  border: 1px solid rgba(32, 35, 31, 0.08);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--ivory);
+  box-shadow: 0 24px 55px rgba(9, 24, 16, 0.22);
+  color: var(--forest-deep);
+  list-style: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms var(--ease);
+  visibility: hidden;
+}
+.primary-nav__item--shop:hover > .category-menu,
+.primary-nav__item--shop:focus-within > .category-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+.category-menu__eyebrow {
+  grid-column: 1 / -1;
+  margin: 0 0 0.45rem;
+  padding: 0.2rem 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.category-menu > li:not(.category-menu__eyebrow) > a {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 0.6rem;
+  border-radius: 7px;
+  color: var(--forest);
+  font-size: 0.78rem;
+  font-weight: 650;
+  transition: background 180ms var(--ease), color 180ms var(--ease);
+}
+.category-menu > li > a svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.58;
+}
+.category-menu > li > a:hover,
+.category-menu > li > a:focus-visible {
+  background: var(--ivory-deep);
+  color: var(--spice-red-dark);
+}
+.nav-drawer__links > li > a[aria-current="page"] {
+  color: var(--spice-red-dark);
+}
+.nav-drawer__subnav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.2rem 0.75rem;
+  margin: -0.25rem 0 0.65rem;
+  padding: 0 0 0.9rem;
+  border-bottom: 1px solid var(--line);
+  list-style: none;
+}
+.nav-drawer__subnav a {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  padding: 0.45rem 0.2rem;
+  border: 0;
+  border-radius: 5px;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 650;
+  line-height: 1.35;
+  transition: color 160ms var(--ease), background 160ms var(--ease);
+}
+.nav-drawer__subnav a::after {
+  content: none;
+}
+.nav-drawer__subnav a:hover,
+.nav-drawer__subnav a:focus-visible {
+  background: var(--ivory-deep);
+  color: var(--forest-deep);
+}
+.mobile-bottom-nav {
+  display: none;
+}
+.category-card {
+  border: 1px solid rgba(250, 246, 238, 0.13);
+  box-shadow: 0 10px 30px rgba(13, 40, 28, 0.06);
+  transition: box-shadow 260ms var(--ease), border-color 260ms var(--ease), transform 260ms var(--ease);
+}
+.category-card:hover {
+  border-color: rgba(201, 163, 74, 0.48);
+  box-shadow: 0 22px 48px rgba(13, 40, 28, 0.16);
+  transform: translateY(-3px);
+}
+.category-card img {
+  will-change: transform;
+}
+.product-card {
+  padding-bottom: 0.35rem;
+}
+.product-card__media {
+  border: 1px solid rgba(32, 35, 31, 0.07);
+  box-shadow: 0 0 0 rgba(13, 40, 28, 0);
+  transition: box-shadow 260ms var(--ease), border-color 260ms var(--ease);
+}
+.product-card:hover .product-card__media {
+  border-color: rgba(201, 163, 74, 0.45);
+  box-shadow: 0 16px 36px rgba(13, 40, 28, 0.11);
+}
+.product-card__title a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+.product-card__title a:hover {
+  color: var(--spice-red-dark);
+}
+.search-field input,
+.sort-control select,
+.price-range input {
+  transition: border-color 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+}
+.search-field input:focus,
+.sort-control select:focus,
+.price-range input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 163, 74, 0.16);
+  outline: none;
+}
+.btn {
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease), color 180ms var(--ease);
+}
+.btn:not(:disabled):hover {
+  box-shadow: 0 10px 24px rgba(13, 40, 28, 0.11);
+  transform: translateY(-1px);
+}
+.btn:not(:disabled):active {
+  transform: translateY(0);
+}
+.section-head {
+  gap: clamp(1rem, 3vw, 2.25rem);
+}
+.breadcrumbs a {
+  transition: color 160ms var(--ease);
+}

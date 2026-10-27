@@ -257,15 +257,42 @@
       ["story", "Our Story", "story.html"],
       ["contact", "Contact", "contact.html"],
     ];
+    const categoryItems = [
+      ["spice-powders", "Spice Powders"],
+      ["traditional-masalas", "Traditional Masalas"],
+      ["premixes", "Premixes"],
+      ["cooking-masalas", "Cooking Masalas"],
+      ["podi-chutney-powders", "Podi & Chutney Powders"],
+    ];
+    const categoryMenuMarkup = categoryItems
+      .map(function (item) {
+        return `<li><a href="shop.html?category=${encodeURIComponent(item[0])}">${escapeHTML(item[1])}<span aria-hidden="true">${icon("arrowUpRight")}</span></a></li>`;
+      })
+      .join("");
     const navMarkup = navItems
       .map(function (item) {
         const isActive = active === item[0];
-        return `<li><a class="primary-nav__link" href="${item[2]}"${isActive ? ' aria-current="page"' : ""}>${item[1]}</a></li>`;
+        const hasCategories = item[0] === "shop";
+        return `<li class="primary-nav__item${hasCategories ? " primary-nav__item--shop" : ""}">
+          <a class="primary-nav__link" href="${item[2]}"${isActive ? ' aria-current="page"' : ""}${hasCategories ? ' aria-haspopup="true"' : ""}>
+            ${item[1]}${hasCategories ? '<span class="primary-nav__caret" aria-hidden="true"></span>' : ""}
+          </a>
+          ${hasCategories ? `<ul class="category-menu" aria-label="Shop by category">
+            <li class="category-menu__eyebrow">Explore the pantry</li>
+            ${categoryMenuMarkup}
+          </ul>` : ""}
+        </li>`;
       })
       .join("");
     const drawerMarkup = navItems
       .map(function (item) {
-        return `<li><a href="${item[2]}"${active === item[0] ? ' aria-current="page"' : ""}>${item[1]}</a></li>`;
+        const isActive = active === item[0];
+        const categoryLinks = item[0] === "shop"
+          ? `<ul class="nav-drawer__subnav" aria-label="Shop by category">${categoryItems.map(function (category) {
+              return `<li><a href="shop.html?category=${encodeURIComponent(category[0])}">${escapeHTML(category[1])}</a></li>`;
+            }).join("")}</ul>`
+          : "";
+        return `<li><a href="${item[2]}"${isActive ? ' aria-current="page"' : ""}>${item[1]}</a>${categoryLinks}</li>`;
       })
       .join("");
     const announcement = announcementDismissed
@@ -276,6 +303,23 @@
             <button class="announcement-bar__close" type="button" data-dismiss-announcement aria-label="Dismiss announcement">${icon("close")}</button>
           </div>
         </div>`;
+    const whatsappHref = `https://wa.me/${escapeHTML(config.WHATSAPP_NUMBER || "917888060231")}`;
+    const quickNav = active.startsWith("admin")
+      ? ""
+      : `<nav class="mobile-bottom-nav" aria-label="Quick navigation">
+          <a class="mobile-bottom-nav__item${active === "home" ? " is-active" : ""}" href="index.html"${active === "home" ? ' aria-current="page"' : ""}>
+            ${icon("home")}<span>Home</span>
+          </a>
+          <a class="mobile-bottom-nav__item${active === "shop" ? " is-active" : ""}" href="shop.html"${active === "shop" ? ' aria-current="page"' : ""}>
+            ${icon("spice")}<span>Shop</span>
+          </a>
+          <a class="mobile-bottom-nav__item" href="${whatsappHref}" target="_blank" rel="noopener noreferrer" aria-label="Chat with KAYAM SPICES on WhatsApp">
+            ${icon("whatsapp")}<span>WhatsApp</span>
+          </a>
+          <a class="mobile-bottom-nav__item${active === "cart" ? " is-active" : ""}" href="cart.html"${active === "cart" ? ' aria-current="page"' : ""} aria-label="Shopping bag">
+            ${icon("bag")}<span>Bag</span><span class="mobile-bottom-nav__count" data-cart-count hidden>0</span>
+          </a>
+        </nav>`;
 
     return `${announcement}
       <header class="site-header">
@@ -319,7 +363,7 @@
             <span>Pure Spices, Real Flavours</span>
           </div>
         </div>
-      </div>`;
+      </div>${quickNav}`;
   }
 
   function renderFooter() {
@@ -380,7 +424,19 @@
 
   function initHeader() {
     const headerMount = document.getElementById("site-header");
-    if (headerMount) headerMount.innerHTML = renderHeader();
+    if (headerMount) {
+      headerMount.innerHTML = renderHeader();
+      headerMount.classList.toggle("has-announcement", Boolean(headerMount.querySelector("[data-announcement]")));
+      document.body.classList.toggle("has-mobile-bottom-nav", Boolean(headerMount.querySelector(".mobile-bottom-nav")));
+      const stickyHeader = headerMount.querySelector(".site-header");
+      if (stickyHeader) {
+        const updateHeaderState = function () {
+          stickyHeader.classList.toggle("is-scrolled", window.scrollY > 24);
+        };
+        updateHeaderState();
+        window.addEventListener("scroll", updateHeaderState, { passive: true });
+      }
+    }
     const footerMount = document.getElementById("site-footer");
     if (footerMount) footerMount.innerHTML = renderFooter();
 
@@ -390,6 +446,8 @@
         session.set("kayam.announcement.dismissed", "1");
         const bar = dismissButton.closest("[data-announcement]");
         if (bar) bar.remove();
+        const headerMount = document.getElementById("site-header");
+        if (headerMount) headerMount.classList.remove("has-announcement");
       });
     }
 

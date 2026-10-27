@@ -179,3 +179,12 @@ A fresh browser screenshot sweep and live Supabase integration test were not run
 - Existing cart, order-creation RPC, WhatsApp ordering, administrator code, and SQL schema were not changed in this phase.
 - Source-level validation completed: JavaScript parse check passed; static-mode catalogue smoke test passed for five categories, 11 products, expected slugs, linked categories, local image paths, no variants/prices, price-pending card labels, and product URLs. A configured Supabase request failure correctly produced `FETCH_FAILED` rather than falling back to static data. All 11 SVG assets have valid outer SVG markup, contain no scripts, and reference no external image URLs.
 - A full rendered browser sweep and live Supabase integration test still require a browser run and configured Supabase project.
+
+
+## Premium Heritage 2.0 UI refresh — 28 October 2026
+
+- Source parsing passed for updated `assets/js/common.js` and `assets/js/shop.js`.
+- Checked the new responsive navigation structure contains all five category routes, all four mobile quick-navigation actions, active-page semantics for Home/Shop/Bag, and a cart-count hook.
+- Reviewed responsive CSS changes for desktop/tablet/mobile breakpoints, safe-area spacing on mobile, reduced-motion handling and mobile toast placement above the fixed navigation.
+- Added conditional shop controls so price-range/availability filters do not appear without product variants, and price/newest sorting is unavailable until matching data exists.
+- Visual browser QA at real viewport widths and keyboard/screen-reader testing remain outstanding; source checks alone do not establish rendered layout quality.

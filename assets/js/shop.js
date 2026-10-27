@@ -95,6 +95,33 @@
   }
 
   function filterPanelMarkup() {
+    const hasVariantData = catalogue.products.some((product) => product.variants && product.variants.length > 0);
+    const priceFilter = hasVariantData
+      ? `<div class="filter-group">
+          <h3 class="filter-group__title">Price range</h3>
+          <div class="price-range">
+            <label class="sr-only" for="filter-min-price">Minimum price in rupees</label>
+            <input id="filter-min-price" type="number" min="0" step="1" inputmode="decimal" placeholder="Min ₹" value="${Kayam.escapeHTML(
+              moneyInputValue(state.min),
+            )}">
+            <span>to</span>
+            <label class="sr-only" for="filter-max-price">Maximum price in rupees</label>
+            <input id="filter-max-price" type="number" min="0" step="1" inputmode="decimal" placeholder="Max ₹" value="${Kayam.escapeHTML(
+              moneyInputValue(state.max),
+            )}">
+          </div>
+          <p class="field__hint">Prices shown are current catalogue prices and exclude delivery.</p>
+        </div>`
+      : "";
+    const availabilityFilter = hasVariantData
+      ? `<div class="filter-group">
+          <h3 class="filter-group__title">Availability</h3>
+          <label class="filter-option">
+            <input type="checkbox" id="filter-in-stock" ${state.inStock ? "checked" : ""}>
+            <span>In-stock weights only</span>
+          </label>
+        </div>`
+      : "";
     const allCategories = catalogue.categories
       .map(function (category) {
         return `<label class="filter-option">
@@ -116,28 +143,8 @@
         </label>
         ${allCategories}
       </div>
-      <div class="filter-group">
-        <h3 class="filter-group__title">Price range</h3>
-        <div class="price-range">
-          <label class="sr-only" for="filter-min-price">Minimum price in rupees</label>
-          <input id="filter-min-price" type="number" min="0" step="1" inputmode="decimal" placeholder="Min ₹" value="${Kayam.escapeHTML(
-            moneyInputValue(state.min),
-          )}">
-          <span>to</span>
-          <label class="sr-only" for="filter-max-price">Maximum price in rupees</label>
-          <input id="filter-max-price" type="number" min="0" step="1" inputmode="decimal" placeholder="Max ₹" value="${Kayam.escapeHTML(
-            moneyInputValue(state.max),
-          )}">
-        </div>
-        <p class="field__hint">Prices shown are current catalogue prices and exclude delivery.</p>
-      </div>
-      <div class="filter-group">
-        <h3 class="filter-group__title">Availability</h3>
-        <label class="filter-option">
-          <input type="checkbox" id="filter-in-stock" ${state.inStock ? "checked" : ""}>
-          <span>In-stock weights only</span>
-        </label>
-      </div>
+      ${priceFilter}
+      ${availabilityFilter}
       <div class="filter-actions">
         <button class="btn btn--outline" type="reset">Clear all</button>
         <button class="btn btn--dark" type="button" data-apply-filters>Show results</button>
@@ -505,11 +512,42 @@
     }
   }
 
+  function configureVariantDependentControls() {
+    if (!catalogue) return;
+    const hasVariantData = catalogue.products.some((product) => product.variants && product.variants.length > 0);
+    const hasCreatedDates = catalogue.products.some((product) => Boolean(product.created_at));
+    if (!hasVariantData) {
+      state.min = null;
+      state.max = null;
+      state.inStock = false;
+      if (state.sort === "price-asc" || state.sort === "price-desc" || state.sort === "newest") state.sort = "featured";
+    } else if (!hasCreatedDates && state.sort === "newest") {
+      state.sort = "featured";
+    }
+    const sort = document.getElementById("shop-sort");
+    if (sort) {
+      ["price-asc", "price-desc"].forEach(function (value) {
+        const option = sort.querySelector(`option[value="${value}"]`);
+        if (option) {
+          option.hidden = !hasVariantData;
+          option.disabled = !hasVariantData;
+        }
+      });
+      const newest = sort.querySelector('option[value="newest"]');
+      if (newest) {
+        newest.hidden = !hasCreatedDates;
+        newest.disabled = !hasCreatedDates;
+      }
+      sort.value = state.sort;
+    }
+  }
+
   async function init() {
     initFilterDrawer();
     initSearchAndSort();
     try {
       catalogue = await Kayam.Catalogue.loadAll();
+      configureVariantDependentControls();
       renderFilters();
       applyFilters();
       if (params.get("focus") === "search") {
