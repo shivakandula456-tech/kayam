@@ -303,7 +303,6 @@
         <div class="nav-drawer__panel">
           <div class="nav-drawer__top">
             <a class="brand" href="index.html" aria-label="KAYAM SPICES home">
-              <img class="brand__logo" src="assets/images/kayam-logo-mark.jpg" alt="" width="46" height="51">
               <span class="brand__wordmark">
                 <span class="brand__name">KAYAM</span>
                 <span class="brand__tag">Spices</span>
