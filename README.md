@@ -15,6 +15,9 @@ collected by this website.
   integrity checks pass local QA. See `TEST_REPORT.md`.
 - `assets/js/config.js` still contains Supabase placeholders, so live catalogue,
   authentication, order, and admin operations are not yet connected.
+- While Supabase is unconfigured, the storefront uses a local 11-product catalogue with five categories. Prices, weights, stock and ingredients remain unconfigured; Add to Cart stays unavailable until real variants are published.
+- Product artwork is stored locally in `assets/images/products/`. These are custom illustrations for the pre-integration phase, not photos of finished KAYAM packaging. Replace them with approved product photos when available.
+- When Supabase is configured, its live catalogue is authoritative. A configured-but-failing request shows an error rather than falling back to stale static data. Local artwork remains a temporary image fallback until a live product image is uploaded.
 - Product weights, prices, stock, descriptions, ingredients, and images have not been
   fabricated. Add confirmed business data through the administrator area.
 - The production URL is not known yet, so canonical URLs, absolute social images,
