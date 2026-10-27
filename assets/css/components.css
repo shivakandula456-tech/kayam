@@ -2883,14 +2883,6 @@
   gap: 0.8rem;
 }
 
-.footer-brand__logo {
-  width: 54px;
-  height: 60px;
-  border: 1px solid var(--gold-line);
-  border-radius: 10px;
-  object-fit: cover;
-}
-
 .footer-brand__name {
   font-family: var(--font-display);
   font-size: 1.9rem;
