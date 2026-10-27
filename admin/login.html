@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administrator Login | KAYAM SPICES</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0D281C">
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-login-body" data-admin-page="login">
+  <main class="admin-login">
+    <section class="admin-login__visual" aria-label="KAYAM SPICES administrator">
+      <a class="admin-login__brand" href="../index.html">
+        <img src="../assets/images/kayam-logo-mark.jpg" alt="" width="58" height="64">
+        <span><strong>KAYAM</strong><span>Spices administrator</span></span>
+      </a>
+      <div class="admin-login__message">
+        <h1>Behind the pantry.</h1>
+        <p>Manage the catalogue, review saved orders, confirm delivery details, and keep the KAYAM SPICES storefront current.</p>
+      </div>
+      <p class="admin-login__foot">Pure Spices, Real Flavours · KAYAM SPICES</p>
+    </section>
+    <section class="admin-login__panel">
+      <div class="admin-login__form-wrap">
+        <p class="admin-login__eyebrow">Administrator access</p>
+        <h2>Welcome back.</h2>
+        <p class="admin-login__intro">Sign in with the email address and password provisioned for this store.</p>
+
+        <div class="admin-alert admin-alert--error" id="login-error" role="alert" hidden></div>
+        <div class="admin-login__config-note" id="login-config-note" hidden>
+          The store database is not connected yet. Add the Supabase project URL and public anon key to <strong>assets/js/config.js</strong>, then reload this page. Database setup steps are in <strong>README.md</strong>.
+        </div>
+
+        <form class="admin-login__form" id="admin-login-form" novalidate>
+          <div class="admin-field">
+            <label for="admin-email">Email address</label>
+            <input class="admin-input" id="admin-email" name="email" type="email" autocomplete="username" inputmode="email" spellcheck="false" required placeholder="name@example.com">
+          </div>
+          <div class="admin-field">
+            <label for="admin-password">Password</label>
+            <input class="admin-input" id="admin-password" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password">
+          </div>
+          <button class="admin-btn admin-btn--block" type="submit" id="admin-login-button">Sign in to the dashboard</button>
+        </form>
+
+        <p class="admin-login__note">Administrator accounts are created and managed in Supabase Authentication. Public registration is not available on this website. Lost passwords are reset through the Supabase project owner.</p>
+        <a class="admin-login__back" href="../index.html">← Return to the KAYAM SPICES website</a>
+      </div>
+    </section>
+  </main>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/vendor/supabase.js"></script>
+  <script defer src="../assets/js/supabase-client.js"></script>
+  <script defer src="../assets/js/admin.js"></script>
+  <script defer src="../assets/js/admin-login.js"></script>
+</body>
+</html>

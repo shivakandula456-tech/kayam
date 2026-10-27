@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product editor | KAYAM SPICES Admin</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#173D2C">
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body admin-booting" data-admin-page="product-form">
+  <div class="admin-boot" id="admin-boot">
+    <div class="admin-boot__panel">
+      <img src="../assets/images/kayam-logo-mark.jpg" alt="" width="68" height="74">
+      <span class="admin-spinner" aria-hidden="true"></span>
+      <strong>Opening your workspace</strong>
+      <p>Checking administrator access…</p>
+    </div>
+  </div>
+  <div class="admin-layout" id="admin-layout" hidden>
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+    <div class="admin-workspace">
+      <header class="admin-topbar" id="admin-topbar"></header>
+      <main class="admin-main" id="admin-main">
+        <header class="admin-page-head">
+          <div class="admin-page-head__copy">
+            <p class="admin-eyebrow"><a class="admin-link" href="products.html">Products</a> / Editor</p>
+            <h1 id="product-form-title">Add product.</h1>
+            <p id="product-form-subtitle">Create the product, then add weight options, pricing, stock, and images.</p>
+          </div>
+          <div class="admin-actions">
+            <a class="admin-btn admin-btn--outline" href="products.html">Back to products</a>
+          </div>
+        </header>
+
+        <div id="product-form-error"></div>
+        <div class="admin-loading" id="product-form-loading">Loading product…</div>
+
+        <form id="product-form" hidden>
+          <div class="admin-split">
+            <div class="admin-stack">
+              <section class="admin-card" aria-labelledby="details-title">
+                <div class="admin-card__head">
+                  <div>
+                    <h2 id="details-title">Product details</h2>
+                    <p>Publish truthful product information supplied by the business.</p>
+                  </div>
+                </div>
+                <div class="admin-form-grid">
+                  <div class="admin-field admin-field--full">
+                    <label for="product-name">Product name</label>
+                    <input class="admin-input" id="product-name" name="name" type="text" maxlength="160" autocomplete="off" required>
+                  </div>
+                  <div class="admin-field">
+                    <label for="product-slug">URL slug</label>
+                    <input class="admin-input" id="product-slug" name="slug" type="text" maxlength="100" autocomplete="off" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required>
+                    <p class="admin-field__hint">Lowercase words separated by hyphens. <button class="admin-link" type="button" id="product-slug-generate" style="font-size:inherit;">Use the name</button></p>
+                  </div>
+                  <div class="admin-field">
+                    <label for="product-category">Category</label>
+                    <select class="admin-select" id="product-category" name="category_id">
+                      <option value="">No category</option>
+                    </select>
+                  </div>
+                  <div class="admin-field admin-field--full">
+                    <label for="product-short-description">Short description</label>
+                    <textarea class="admin-textarea" id="product-short-description" name="short_description" maxlength="300" rows="2"></textarea>
+                    <p class="admin-field__hint">Used on product cards and search results. Keep it factual and under 300 characters.</p>
+                  </div>
+                  <div class="admin-field admin-field--full">
+                    <label for="product-description">Full description</label>
+                    <textarea class="admin-textarea" id="product-description" name="description" rows="5"></textarea>
+                  </div>
+                  <div class="admin-field admin-field--full">
+                    <label for="product-ingredients">Ingredients</label>
+                    <textarea class="admin-textarea" id="product-ingredients" name="ingredients" rows="3"></textarea>
+                    <p class="admin-field__hint">Leave blank until the ingredient list is confirmed. Do not guess allergen or ingredient information.</p>
+                  </div>
+                  <div class="admin-field">
+                    <label for="product-order">Display order</label>
+                    <input class="admin-input" id="product-order" name="display_order" type="number" min="0" max="9999" step="1" value="0" inputmode="numeric">
+                  </div>
+                  <div class="admin-field" style="align-self:end;">
+                    <label class="admin-check"><input id="product-active" name="is_active" type="checkbox" checked> Visible on the storefront</label>
+                    <label class="admin-check"><input id="product-featured" name="is_featured" type="checkbox"> Feature on the home page</label>
+                  </div>
+                </div>
+              </section>
+
+              <section class="admin-card" aria-labelledby="weights-title">
+                <div class="admin-card__head">
+                  <div>
+                    <h2 id="weights-title">Weights &amp; pricing</h2>
+                    <p>Add every sellable weight option with its confirmed price. Removing a saved option deletes it when you save.</p>
+                  </div>
+                  <button class="admin-btn admin-btn--outline admin-btn--small" type="button" id="variant-add">Add weight</button>
+                </div>
+                <div class="admin-variant-list" id="variant-list"></div>
+                <p class="admin-field__hint" style="margin-top:.7rem;">Quantities are reserved immediately when an order is submitted. Leave stock untracked only when availability does not need a count.</p>
+              </section>
+
+              <section class="admin-card" id="images-card" aria-labelledby="images-title">
+                <div class="admin-card__head">
+                  <div>
+                    <h2 id="images-title">Product images</h2>
+                    <p id="images-help">Save the product first, then upload JPG, PNG, or WebP images up to 5 MB each.</p>
+                  </div>
+                </div>
+                <label class="admin-upload-zone" for="image-input">
+                  <strong>Choose product images</strong>
+                  <span>JPG, PNG, or WebP · up to 5 MB each · multiple files supported</span>
+                  <input id="image-input" type="file" accept="image/jpeg,image/png,image/webp" multiple disabled>
+                </label>
+                <div id="image-progress" aria-live="polite"></div>
+                <div class="admin-image-grid" id="image-grid"></div>
+              </section>
+            </div>
+
+            <div class="admin-stack">
+              <section class="admin-card" aria-labelledby="summary-title">
+                <div class="admin-card__head">
+                  <div>
+                    <h2 id="summary-title">At a glance</h2>
+                    <p id="summary-state">Not saved yet</p>
+                  </div>
+                </div>
+                <img class="admin-image-card__preview" id="summary-image" src="../assets/images/product-placeholder.svg" alt="" style="max-width:180px;border-radius:8px;">
+                <dl class="admin-detail-list" id="summary-list" style="margin-top:.8rem;"></dl>
+                <div class="admin-form-actions">
+                  <a class="admin-link" id="product-view-link" href="../shop.html" target="_blank" rel="noopener" hidden>Open product page</a>
+                </div>
+              </section>
+
+              <section class="admin-card" aria-labelledby="tips-title">
+                <div class="admin-card__head">
+                  <div>
+                    <h2 id="tips-title">Before publishing</h2>
+                  </div>
+                </div>
+                <div class="admin-inline-stack admin-small admin-muted">
+                  <p style="margin:0;">Use confirmed weights and prices; the storefront shows pricing as pending when no active weight exists.</p>
+                  <p style="margin:0;">Alt text should describe the actual product image, not repeat marketing copy.</p>
+                  <p style="margin:0;">Inactive products and inactive weights are hidden from customers but remain available here.</p>
+                </div>
+              </section>
+
+              <section class="admin-card admin-danger-zone" id="product-delete-zone" hidden aria-labelledby="delete-product-title">
+                <h3 id="delete-product-title">Delete this product</h3>
+                <p>Deleting removes the product, weights, images, and uploaded files. Existing order snapshots remain intact.</p>
+                <button class="admin-btn admin-btn--danger admin-btn--small" type="button" id="product-delete">Delete product</button>
+              </section>
+            </div>
+          </div>
+
+          <div class="admin-save-bar">
+            <p class="admin-small admin-muted" id="save-note" style="margin:0;">Unsaved changes.</p>
+            <div class="admin-form-actions" style="margin:0;">
+              <a class="admin-btn admin-btn--outline" href="products.html">Cancel</a>
+              <button class="admin-btn" type="submit" id="product-save">Save product</button>
+            </div>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+  <button class="admin-scrim" type="button" aria-label="Close admin navigation"></button>
+  <div class="admin-toast-stack" aria-live="polite"></div>
+  <noscript><p style="padding: 2rem;">Administrator tools require JavaScript.</p></noscript>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/vendor/supabase.js"></script>
+  <script defer src="../assets/js/supabase-client.js"></script>
+  <script defer src="../assets/js/admin.js"></script>
+  <script defer src="../assets/js/admin-product-form.js"></script>
+</body>
+</html>

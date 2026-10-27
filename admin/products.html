@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products | KAYAM SPICES Admin</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#173D2C">
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body admin-booting" data-admin-page="products">
+  <div class="admin-boot" id="admin-boot">
+    <div class="admin-boot__panel">
+      <img src="../assets/images/kayam-logo-mark.jpg" alt="" width="68" height="74">
+      <span class="admin-spinner" aria-hidden="true"></span>
+      <strong>Opening your workspace</strong>
+      <p>Checking administrator access…</p>
+    </div>
+  </div>
+  <div class="admin-layout" id="admin-layout" hidden>
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+    <div class="admin-workspace">
+      <header class="admin-topbar" id="admin-topbar"></header>
+      <main class="admin-main" id="admin-main">
+        <header class="admin-page-head">
+          <div class="admin-page-head__copy">
+            <p class="admin-eyebrow">Catalogue</p>
+            <h1>Products.</h1>
+            <p>Publish products, manage weight options, set prices and stock, and upload product images.</p>
+          </div>
+          <div class="admin-actions">
+            <button class="admin-btn admin-btn--outline" type="button" id="products-refresh">Refresh</button>
+            <a class="admin-btn" href="product-form.html">Add product</a>
+          </div>
+        </header>
+
+        <div id="products-error"></div>
+        <form class="admin-filters" id="products-filters" role="search">
+          <div class="admin-filters__search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4.2 4.2"/></svg>
+            <label class="sr-only" for="products-search">Search products</label>
+            <input class="admin-input" id="products-search" name="search" type="search" placeholder="Search product name or slug">
+          </div>
+          <div>
+            <label class="sr-only" for="products-category">Filter by category</label>
+            <select class="admin-select" id="products-category" name="category">
+              <option value="">All categories</option>
+            </select>
+          </div>
+          <div>
+            <label class="sr-only" for="products-status">Filter by status</label>
+            <select class="admin-select" id="products-status" name="status">
+              <option value="">All statuses</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="featured">Featured</option>
+            </select>
+          </div>
+          <button class="admin-btn" type="submit">Apply</button>
+        </form>
+
+        <section class="admin-card" aria-labelledby="products-list-title">
+          <div class="admin-card__head">
+            <div>
+              <h2 id="products-list-title">Catalogue</h2>
+              <p id="products-summary">Loading products…</p>
+            </div>
+          </div>
+          <div id="products-list">
+            <div class="admin-loading">Loading products…</div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <button class="admin-scrim" type="button" aria-label="Close admin navigation"></button>
+  <div class="admin-toast-stack" aria-live="polite"></div>
+  <noscript><p style="padding: 2rem;">Administrator tools require JavaScript.</p></noscript>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/vendor/supabase.js"></script>
+  <script defer src="../assets/js/supabase-client.js"></script>
+  <script defer src="../assets/js/admin.js"></script>
+  <script defer src="../assets/js/admin-products.js"></script>
+</body>
+</html>

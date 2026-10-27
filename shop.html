@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop Spices | KAYAM SPICES</title>
+  <meta name="description" content="Browse the KAYAM SPICES pantry of spice powders, traditional masalas, premixes, cooking masalas, and podi chutney powders.">
+  <meta name="theme-color" content="#173D2C">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="KAYAM SPICES">
+  <meta property="og:title" content="Shop Spices | KAYAM SPICES">
+  <meta property="og:description" content="Explore spice powders, traditional masalas, premixes, cooking masalas, and podi chutney powders.">
+  <meta property="og:image" content="assets/images/hero-poster.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/desktop.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="shop">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div id="site-header"></div>
+  <main id="main-content">
+    <section class="page-hero" aria-labelledby="shop-title">
+      <div class="container page-hero__inner">
+        <ol class="breadcrumbs breadcrumbs--light" aria-label="Breadcrumb">
+          <li><a href="index.html">Home</a></li>
+          <li aria-current="page">Shop</li>
+        </ol>
+        <div class="page-hero__copy">
+          <p class="eyebrow">The KAYAM pantry</p>
+          <h1 id="shop-title">Spices for every table.</h1>
+          <p>Explore familiar spice powders, traditional blends, premixes, and podis. Choose a weight, check availability, and add your favourites to the cart.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="products-heading">
+      <div class="container">
+        <h2 class="sr-only" id="products-heading">Shop products</h2>
+        <div class="filter-bar">
+          <div class="search-field">
+            <span class="search-field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4.2 4.2"/></svg></span>
+            <label class="sr-only" for="shop-search">Search spices</label>
+            <input id="shop-search" type="search" placeholder="Search spices, masalas, podis..." autocomplete="off">
+            <button class="search-field__clear" type="button" data-clear-search aria-label="Clear search" hidden><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+          </div>
+          <button class="filter-trigger" type="button" data-open-filters aria-controls="shop-sidebar" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6h17M6.5 12h11M10 18h4"/></svg>
+            Filters
+            <span class="filter-trigger__count" data-filter-count hidden>0</span>
+          </button>
+          <div class="sort-control">
+            <label for="shop-sort">Sort by</label>
+            <select id="shop-sort">
+              <option value="featured">Featured</option>
+              <option value="name-asc">Name A–Z</option>
+              <option value="name-desc">Name Z–A</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="shop-layout">
+          <aside class="shop-sidebar" id="shop-sidebar" aria-label="Product filters">
+            <div class="shop-sidebar__mobile-head">
+              <h2>Filters</h2>
+              <button class="drawer__close" type="button" data-close-filters aria-label="Close filters"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+            </div>
+            <div id="shop-filters">
+              <div class="loading-block"><span class="spinner" aria-hidden="true"></span><span class="sr-only">Loading filters</span></div>
+            </div>
+          </aside>
+          <div class="shop-results">
+            <div class="results-meta">
+              <span id="shop-results-count" aria-live="polite">Loading spices…</span>
+              <span id="shop-results-note"></span>
+            </div>
+            <div id="active-filters" class="active-filters" aria-label="Active filters"></div>
+            <div id="shop-products" aria-live="polite">
+              <div class="skeleton-grid" aria-hidden="true">
+                <div class="skeleton-card"><div class="skeleton skeleton--image"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--line-short"></div></div>
+                <div class="skeleton-card"><div class="skeleton skeleton--image"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--line-short"></div></div>
+                <div class="skeleton-card"><div class="skeleton skeleton--image"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--line-short"></div></div>
+                <div class="skeleton-card"><div class="skeleton skeleton--image"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--line-short"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="filter-scrim" data-filter-scrim hidden></div>
+  </main>
+  <div id="site-footer"></div>
+  <script defer src="assets/js/config.js"></script>
+  <script defer src="assets/vendor/supabase.js"></script>
+  <script defer src="assets/js/supabase-client.js"></script>
+  <script defer src="assets/js/common.js"></script>
+  <script defer src="assets/js/whatsapp.js"></script>
+  <script defer src="assets/js/catalogue.js"></script>
+  <script defer src="assets/js/cart.js"></script>
+  <script defer src="assets/js/shop.js"></script>
+</body>
+</html>

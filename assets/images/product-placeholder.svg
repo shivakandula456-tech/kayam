@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="phTitle phDesc">
+  <title id="phTitle">KAYAM SPICES product image placeholder</title>
+  <desc id="phDesc">An illustrated spice bowl on a warm ivory background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6efe2"/>
+      <stop offset="0.52" stop-color="#efe3ce"/>
+      <stop offset="1" stop-color="#e8d8bd"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="62%">
+      <stop offset="0" stop-color="#fbf7ef" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#f2e9da" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bowl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#28523d"/>
+      <stop offset="1" stop-color="#173d2c"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#173d2c" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="400" cy="400" r="330" fill="url(#glow)"/>
+  <g fill="none" stroke="#c9a34a" stroke-width="2" opacity="0.5">
+    <circle cx="400" cy="430" r="250"/>
+    <circle cx="400" cy="430" r="286"/>
+    <path d="M104 430h38M658 430h38M400 134v38M400 688v38"/>
+  </g>
+  <g opacity="0.65">
+    <path d="M190 228c66-18 120 6 148 54-68 15-119-6-148-54Z" fill="#28523d"/>
+    <path d="M198 250c52 1 91 20 121 49" fill="none" stroke="#d9c9a3" stroke-width="3"/>
+    <path d="M618 742c-55-28-92-74-94-136 58 18 91 66 94 136Z" fill="#a83225" opacity="0.3"/>
+    <path d="M583 718c-31-25-49-53-55-85" fill="none" stroke="#a83225" stroke-width="3" opacity="0.6"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M254 520c11 122 61 193 146 193s135-71 146-193H254Z" fill="url(#bowl)"/>
+    <ellipse cx="400" cy="520" rx="146" ry="44" fill="#0d281c"/>
+    <ellipse cx="400" cy="516" rx="130" ry="32" fill="#c9a34a" opacity="0.15"/>
+  </g>
+  <g>
+    <path d="M298 494c20-73 76-122 142-129 16 66-38 131-142 129Z" fill="#a83225"/>
+    <path d="M322 474c28-45 64-74 101-87" fill="none" stroke="#d77d60" stroke-width="7" opacity="0.5"/>
+    <path d="M511 499c-18-63-58-101-110-111-8 55 37 105 110 111Z" fill="#7f251b"/>
+    <path d="M492 481c-22-36-47-59-76-72" fill="none" stroke="#bd6552" stroke-width="6" opacity="0.42"/>
+    <path d="M356 446c-3-38 12-69 43-92 22 30 21 64-4 98-12 15-27 13-39-6Z" fill="#28523d"/>
+    <path d="M371 432c4-24 12-41 25-55" fill="none" stroke="#d9c9a3" stroke-width="3"/>
+    <path d="M427 454c29-30 62-38 99-21-15 35-44 52-88 47-17-2-21-11-11-26Z" fill="#5a7041"/>
+    <path d="M453 450c15-9 30-13 46-12" fill="none" stroke="#d9c9a3" stroke-width="3"/>
+    <path d="M400 401l19 39 42 6-30 30 7 43-38-21-38 21 7-43-30-30 42-6 19-39Z" fill="#6f4c2b"/>
+    <path d="M400 418l12 25 27 4-20 19 5 27-24-14-24 14 5-27-20-19 27-4 12-25Z" fill="#a97b4e" opacity="0.65"/>
+    <circle cx="345" cy="489" r="8" fill="#3d2b20"/>
+    <circle cx="370" cy="470" r="6" fill="#3d2b20"/>
+    <circle cx="441" cy="476" r="7" fill="#3d2b20"/>
+    <circle cx="465" cy="486" r="5" fill="#3d2b20"/>
+  </g>
+  <g fill="none" stroke="#c9a34a" stroke-width="1.5" opacity="0.62">
+    <path d="M246 716c50 34 100 51 154 51s104-17 154-51"/>
+    <path d="M274 733c40 17 81 26 126 26s86-9 126-26"/>
+  </g>
+  <g transform="translate(400 806)">
+    <path d="M-62 0h124" stroke="#173d2c" stroke-width="1"/>
+    <path d="M0-8v16M-8-4l8 8 8-8" fill="none" stroke="#c9a34a" stroke-width="1.5"/>
+  </g>
+</svg>

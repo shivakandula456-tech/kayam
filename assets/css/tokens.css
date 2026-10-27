@@ -1,0 +1,115 @@
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("../fonts/manrope-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("../fonts/manrope-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("../fonts/manrope-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("../fonts/manrope-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --forest: #173d2c;
+  --forest-deep: #0d281c;
+  --forest-soft: #28523d;
+  --charcoal: #20231f;
+  --gold: #c9a34a;
+  --gold-bright: #e0c276;
+  --gold-soft: #ead8ae;
+  --ivory: #faf6ee;
+  --ivory-deep: #f0e8d9;
+  --ivory-warm: #f6f0e5;
+  --spice-red: #a83225;
+  --spice-red-dark: #7f251b;
+  --muted: #6b6b62;
+  --muted-light: #8b8a7f;
+  --white: #ffffff;
+  --ink: #20231f;
+  --line: rgba(32, 35, 31, 0.14);
+  --line-strong: rgba(32, 35, 31, 0.24);
+  --line-light: rgba(250, 246, 238, 0.18);
+  --gold-line: rgba(201, 163, 74, 0.45);
+  --danger-bg: #f8e7e3;
+  --success-bg: #e7f0e9;
+  --success: #2d6245;
+  --warning-bg: #fbf0d9;
+  --warning: #7b5a13;
+  --font-display: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: "Manrope", "Segoe UI", Tahoma, sans-serif;
+  --container: 1320px;
+  --container-wide: 1540px;
+  --gutter: clamp(1.1rem, 4vw, 3.5rem);
+  --section-space: clamp(4.5rem, 9vw, 8.5rem);
+  --header-height: 68px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 8px 30px rgba(23, 38, 29, 0.07);
+  --shadow-md: 0 18px 55px rgba(23, 38, 29, 0.12);
+  --shadow-lg: 0 30px 90px rgba(13, 40, 28, 0.22);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 280ms;
+  --duration-slow: 750ms;
+  --z-header: 60;
+  --z-drawer: 100;
+  --z-modal: 120;
+  --z-toast: 160;
+  --z-skip: 200;
+}

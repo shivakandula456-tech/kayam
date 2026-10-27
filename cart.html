@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Cart | KAYAM SPICES</title>
+  <meta name="description" content="Review your KAYAM SPICES cart before checkout.">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#173D2C">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/desktop.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="cart">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div id="site-header"></div>
+  <main id="main-content">
+    <section class="page-hero">
+      <div class="container page-hero__inner">
+        <ol class="breadcrumbs breadcrumbs--light" aria-label="Breadcrumb">
+          <li><a href="index.html">Home</a></li>
+          <li aria-current="page">Cart</li>
+        </ol>
+        <div class="page-hero__copy">
+          <p class="eyebrow">Your selection</p>
+          <h1>Your spice cart.</h1>
+          <p>Review your weights and quantities. Prices are refreshed from the current KAYAM SPICES catalogue before checkout.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div id="cart-content" aria-live="polite">
+          <div class="loading-block">
+            <span class="spinner" aria-hidden="true"></span>
+            <span>Checking the current catalogue…</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script defer src="assets/js/config.js"></script>
+  <script defer src="assets/vendor/supabase.js"></script>
+  <script defer src="assets/js/supabase-client.js"></script>
+  <script defer src="assets/js/common.js"></script>
+  <script defer src="assets/js/whatsapp.js"></script>
+  <script defer src="assets/js/catalogue.js"></script>
+  <script defer src="assets/js/cart.js"></script>
+  <script defer src="assets/js/cart-page.js"></script>
+</body>
+</html>

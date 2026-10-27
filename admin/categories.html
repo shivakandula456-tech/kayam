@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Categories | KAYAM SPICES Admin</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#173D2C">
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body admin-booting" data-admin-page="categories">
+  <div class="admin-boot" id="admin-boot">
+    <div class="admin-boot__panel">
+      <img src="../assets/images/kayam-logo-mark.jpg" alt="" width="68" height="74">
+      <span class="admin-spinner" aria-hidden="true"></span>
+      <strong>Opening your workspace</strong>
+      <p>Checking administrator access…</p>
+    </div>
+  </div>
+  <div class="admin-layout" id="admin-layout" hidden>
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+    <div class="admin-workspace">
+      <header class="admin-topbar" id="admin-topbar"></header>
+      <main class="admin-main" id="admin-main">
+        <header class="admin-page-head">
+          <div class="admin-page-head__copy">
+            <p class="admin-eyebrow">Catalogue</p>
+            <h1>Categories.</h1>
+            <p>Organise products into shoppable collections and control the order they appear on the storefront.</p>
+          </div>
+          <div class="admin-actions">
+            <button class="admin-btn admin-btn--outline" type="button" id="categories-refresh">Refresh</button>
+            <button class="admin-btn" type="button" id="category-add">Add category</button>
+          </div>
+        </header>
+
+        <div id="categories-error"></div>
+        <section class="admin-card" aria-labelledby="categories-list-title">
+          <div class="admin-card__head">
+            <div>
+              <h2 id="categories-list-title">Collections</h2>
+              <p>Deactivating a category hides it from the public catalogue but keeps its products.</p>
+            </div>
+          </div>
+          <div id="categories-list">
+            <div class="admin-loading">Loading categories…</div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <button class="admin-scrim" type="button" aria-label="Close admin navigation"></button>
+
+  <dialog class="admin-dialog" id="category-dialog" aria-labelledby="category-dialog-title">
+    <div class="admin-dialog__head">
+      <div>
+        <h2 id="category-dialog-title">Add category</h2>
+        <p id="category-dialog-subtitle">Create a collection for the storefront.</p>
+      </div>
+      <button class="admin-dialog__close" type="button" data-close-category aria-label="Close category form"></button>
+    </div>
+    <div class="admin-dialog__body">
+      <div id="category-form-status"></div>
+      <form id="category-form" novalidate>
+        <div class="admin-form-grid">
+          <div class="admin-field">
+            <label for="category-name">Name</label>
+            <input class="admin-input" id="category-name" name="name" type="text" maxlength="120" autocomplete="off" required>
+          </div>
+          <div class="admin-field">
+            <label for="category-slug">URL slug</label>
+            <input class="admin-input" id="category-slug" name="slug" type="text" maxlength="100" autocomplete="off" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required>
+            <p class="admin-field__hint">Lowercase words separated by hyphens. <button class="admin-link" type="button" id="category-slug-generate" style="font-size:inherit;">Use the name</button></p>
+          </div>
+          <div class="admin-field admin-field--full">
+            <label for="category-description">Description</label>
+            <textarea class="admin-textarea" id="category-description" name="description" maxlength="1000" rows="3"></textarea>
+            <p class="admin-field__hint">Optional short context for the collection. Product tiles may reference this later without editing every product.</p>
+          </div>
+          <div class="admin-field">
+            <label for="category-order">Display order</label>
+            <input class="admin-input" id="category-order" name="display_order" type="number" min="0" max="9999" step="1" value="0" inputmode="numeric">
+          </div>
+          <div class="admin-field" style="align-self:end;">
+            <label class="admin-check"><input id="category-active" name="is_active" type="checkbox" checked> Show this category on the storefront</label>
+          </div>
+        </div>
+        <div class="admin-form-actions">
+          <button class="admin-btn" type="submit" id="category-save">Save category</button>
+          <button class="admin-btn admin-btn--outline" type="button" data-close-category>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <div class="admin-toast-stack" aria-live="polite"></div>
+  <noscript><p style="padding: 2rem;">Administrator tools require JavaScript.</p></noscript>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/vendor/supabase.js"></script>
+  <script defer src="../assets/js/supabase-client.js"></script>
+  <script defer src="../assets/js/admin.js"></script>
+  <script defer src="../assets/js/admin-categories.js"></script>
+</body>
+</html>

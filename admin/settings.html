@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings | KAYAM SPICES Admin</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#173D2C">
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body admin-booting" data-admin-page="settings">
+  <div class="admin-boot" id="admin-boot">
+    <div class="admin-boot__panel">
+      <img src="../assets/images/kayam-logo-mark.jpg" alt="" width="68" height="74">
+      <span class="admin-spinner" aria-hidden="true"></span>
+      <strong>Opening your workspace</strong>
+      <p>Checking administrator access…</p>
+    </div>
+  </div>
+  <div class="admin-layout" id="admin-layout" hidden>
+    <aside class="admin-sidebar" id="admin-sidebar"></aside>
+    <div class="admin-workspace">
+      <header class="admin-topbar" id="admin-topbar"></header>
+      <main class="admin-main" id="admin-main">
+        <header class="admin-page-head">
+          <div class="admin-page-head__copy">
+            <p class="admin-eyebrow">Account</p>
+            <h1>Settings.</h1>
+            <p>Manage your administrator display name, password, and active session.</p>
+          </div>
+        </header>
+
+        <div id="settings-error"></div>
+        <div class="admin-grid-2">
+          <section class="admin-card" aria-labelledby="account-title">
+            <div class="admin-card__head">
+              <div>
+                <h2 id="account-title">Your account</h2>
+                <p>Administrator access is controlled by Supabase authentication and the admin profile list.</p>
+              </div>
+              <span class="admin-status admin-status--active">Administrator</span>
+            </div>
+            <div id="account-status"></div>
+            <form id="account-form">
+              <div class="admin-field">
+                <label for="settings-email">Sign-in email</label>
+                <input class="admin-input" id="settings-email" type="email" readonly>
+                <p class="admin-field__hint">Contact the site owner to change the sign-in email. It is not editable from this page.</p>
+              </div>
+              <div class="admin-field" style="margin-top:.8rem;">
+                <label for="settings-display-name">Display name</label>
+                <input class="admin-input" id="settings-display-name" name="display_name" type="text" maxlength="80" autocomplete="name" required>
+                <p class="admin-field__hint">Shown in the administrator navigation. This does not change the sign-in email.</p>
+              </div>
+              <div class="admin-form-actions">
+                <button class="admin-btn" type="submit" id="account-save">Save display name</button>
+              </div>
+            </form>
+            <dl class="admin-detail-list" id="account-details" style="margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--line);"></dl>
+          </section>
+
+          <section class="admin-card" aria-labelledby="password-title">
+            <div class="admin-card__head">
+              <div>
+                <h2 id="password-title">Change password</h2>
+                <p>Confirm your current password before choosing a new one.</p>
+              </div>
+            </div>
+            <div id="password-status"></div>
+            <form id="password-form">
+              <div class="admin-field">
+                <label for="settings-current-password">Current password</label>
+                <input class="admin-input" id="settings-current-password" name="current_password" type="password" autocomplete="current-password" required>
+              </div>
+              <div class="admin-field" style="margin-top:.8rem;">
+                <label for="settings-new-password">New password</label>
+                <input class="admin-input" id="settings-new-password" name="new_password" type="password" minlength="8" maxlength="72" autocomplete="new-password" required>
+                <p class="admin-field__hint">Use at least 8 characters. A longer, unique password is safer.</p>
+              </div>
+              <div class="admin-field" style="margin-top:.8rem;">
+                <label for="settings-confirm-password">Confirm new password</label>
+                <input class="admin-input" id="settings-confirm-password" name="confirm_password" type="password" minlength="8" maxlength="72" autocomplete="new-password" required>
+              </div>
+              <div class="admin-form-actions">
+                <button class="admin-btn" type="submit" id="password-save">Update password</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="admin-card" aria-labelledby="session-title">
+            <div class="admin-card__head">
+              <div>
+                <h2 id="session-title">Session</h2>
+                <p>Current authentication details for this administrator account.</p>
+              </div>
+            </div>
+            <dl class="admin-detail-list" id="session-details"></dl>
+            <div class="admin-form-actions">
+              <button class="admin-btn admin-btn--outline" type="button" id="session-signout">Sign out</button>
+              <button class="admin-btn admin-btn--danger" type="button" id="session-signout-all">Sign out everywhere</button>
+            </div>
+            <p class="admin-field__hint" style="margin-top:.6rem;">Signing out everywhere revokes all active sessions for this account, including this device.</p>
+          </section>
+
+          <section class="admin-card" aria-labelledby="connection-title">
+            <div class="admin-card__head">
+              <div>
+                <h2 id="connection-title">Connection</h2>
+                <p>Read-only deployment details from the public site configuration.</p>
+              </div>
+            </div>
+            <dl class="admin-detail-list" id="connection-details"></dl>
+            <p class="admin-field__hint" style="margin-top:.8rem;">Database credentials and public configuration are managed in <code>assets/js/config.js</code>, not from this page.</p>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <button class="admin-scrim" type="button" aria-label="Close admin navigation"></button>
+  <div class="admin-toast-stack" aria-live="polite"></div>
+  <noscript><p style="padding: 2rem;">Administrator tools require JavaScript.</p></noscript>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/vendor/supabase.js"></script>
+  <script defer src="../assets/js/supabase-client.js"></script>
+  <script defer src="../assets/js/admin.js"></script>
+  <script defer src="../assets/js/admin-settings.js"></script>
+</body>
+</html>

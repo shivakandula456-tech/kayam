@@ -1,0 +1,9 @@
+window.KAYAM_CONFIG = Object.freeze({
+  SUPABASE_URL: "YOUR_SUPABASE_PROJECT_URL",
+  SUPABASE_ANON_KEY: "YOUR_SUPABASE_ANON_KEY",
+  WHATSAPP_NUMBER: "917888060231",
+  CONTACT_EMAIL: "anikhindi.suchi@gmail.com",
+  STORAGE_BUCKET: "product-images",
+  CURRENCY: "INR",
+  LOCALE: "en-IN",
+});
