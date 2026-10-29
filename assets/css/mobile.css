@@ -1090,7 +1090,7 @@ a {
   text-transform: uppercase;
 }
 .hero__title {
-  max-width: 9ch;
+  max-width: none;
   margin: 0;
   font-size: clamp(4.4rem, 8.1vw, 8.3rem);
   font-weight: 400;
@@ -2095,7 +2095,7 @@ body.has-mobile-bottom-nav {
     letter-spacing: .14em;
   }
   .hero__title {
-    max-width: 10ch;
+    max-width: none;
     font-size: clamp(3.4rem, 12.7vw, 5.6rem);
     line-height: .86;
     letter-spacing: -.05em;
@@ -2393,7 +2393,7 @@ body.has-mobile-bottom-nav {
     width: 31px;
   }
   .hero__title {
-    font-size: 3rem;
+    font-size: 2.7rem;
   }
   .category-card,
   .category-card:nth-child(n) {
