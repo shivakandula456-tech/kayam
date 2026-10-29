@@ -304,17 +304,18 @@
           </div>
         </div>`;
     const whatsappHref = `https://wa.me/${escapeHTML(config.WHATSAPP_NUMBER || "917888060231")}`;
+    const searchIsActive = active === "shop" && new URLSearchParams(window.location.search).get("focus") === "search";
     const quickNav = active.startsWith("admin")
       ? ""
       : `<nav class="mobile-bottom-nav" aria-label="Quick navigation">
           <a class="mobile-bottom-nav__item${active === "home" ? " is-active" : ""}" href="index.html"${active === "home" ? ' aria-current="page"' : ""}>
             ${icon("home")}<span>Home</span>
           </a>
-          <a class="mobile-bottom-nav__item${active === "shop" ? " is-active" : ""}" href="shop.html"${active === "shop" ? ' aria-current="page"' : ""}>
+          <a class="mobile-bottom-nav__item${active === "shop" && !searchIsActive ? " is-active" : ""}" href="shop.html"${active === "shop" && !searchIsActive ? ' aria-current="page"' : ""}>
             ${icon("spice")}<span>Shop</span>
           </a>
-          <a class="mobile-bottom-nav__item" href="${whatsappHref}" target="_blank" rel="noopener noreferrer" aria-label="Chat with KAYAM SPICES on WhatsApp">
-            ${icon("whatsapp")}<span>WhatsApp</span>
+          <a class="mobile-bottom-nav__item${searchIsActive ? " is-active" : ""}" href="shop.html?focus=search"${searchIsActive ? ' aria-current="page"' : ""} aria-label="Search spices">
+            ${icon("search")}<span>Search</span>
           </a>
           <a class="mobile-bottom-nav__item${active === "cart" ? " is-active" : ""}" href="cart.html"${active === "cart" ? ' aria-current="page"' : ""} aria-label="Shopping bag">
             ${icon("bag")}<span>Bag</span><span class="mobile-bottom-nav__count" data-cart-count hidden>0</span>
@@ -325,11 +326,7 @@
       <header class="site-header">
         <div class="container--wide header-inner">
           <a class="brand" href="index.html" aria-label="KAYAM SPICES home">
-            <img class="brand__logo" src="assets/images/kayam-logo-mark.jpg" alt="" width="48" height="54">
-            <span class="brand__wordmark">
-              <span class="brand__name">KAYAM</span>
-              <span class="brand__tag">Spices</span>
-            </span>
+            <img class="brand__logo" src="assets/images/kayam-wordmark.svg" alt="KAYAM SPICES" width="460" height="118" decoding="async">
           </a>
           <nav class="primary-nav" aria-label="Primary navigation">
             <ul class="primary-nav__list">${navMarkup}</ul>
@@ -346,11 +343,8 @@
         <button class="nav-drawer__scrim" type="button" data-menu-close aria-label="Close navigation menu" tabindex="-1"></button>
         <div class="nav-drawer__panel">
           <div class="nav-drawer__top">
-            <a class="brand" href="index.html" aria-label="KAYAM SPICES home">
-              <span class="brand__wordmark">
-                <span class="brand__name">KAYAM</span>
-                <span class="brand__tag">Spices</span>
-              </span>
+            <a class="brand brand--drawer" href="index.html" aria-label="KAYAM SPICES home">
+              <img class="brand__logo" src="assets/images/kayam-wordmark.svg" alt="KAYAM SPICES" width="460" height="118" decoding="async">
             </a>
             <button class="nav-drawer__close" type="button" data-menu-close aria-label="Close navigation menu">${icon("close")}</button>
           </div>
@@ -374,10 +368,7 @@
       <div class="container footer-main">
         <div class="footer-brand">
           <div class="footer-brand__lockup">
-            <div>
-              <div class="footer-brand__name">KAYAM SPICES</div>
-              <div class="footer-brand__tag">The Authentic Taste of Nature</div>
-            </div>
+            <img class="footer-brand__logo" src="assets/images/kayam-wordmark-light.svg" alt="KAYAM SPICES" width="460" height="118" loading="lazy" decoding="async">
           </div>
           <p>Pure spices and traditional Indian blends for the everyday table. Explore the pantry, choose your weight, and confirm your order personally on WhatsApp.</p>
         </div>

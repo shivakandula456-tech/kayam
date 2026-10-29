@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title">
+<title id="title">KAYAM SPICES emblem</title>
+<circle cx="60" cy="60" r="54" fill="none" stroke="#b28b43" stroke-width="1.6"/>
+<circle cx="60" cy="60" r="48" fill="#102d21"/>
+<path d="M34 88C43 69 47 49 48 27" fill="none" stroke="#e8d5a7" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M43 49C26 42 22 29 28 17c15 4 23 15 18 29Z" fill="#55764a"/>
+<path d="M48 44C45 26 57 14 71 13c6 15-2 28-19 34Z" fill="#c6a052"/>
+<path d="M49 61C33 52 21 59 20 72c12 9 25 6 33-5Z" fill="#496b48"/>
+<path d="M50 61C62 45 76 44 86 54c-7 17-21 23-36 15Z" fill="#b28b43"/>
+<path d="M50 85C66 67 80 68 88 80c-9 14-23 17-38 10Z" fill="#496b48"/>
+<path d="M52 87C69 77 79 67 85 55" fill="none" stroke="#e8d5a7" stroke-width="2" stroke-linecap="round"/>
+<path d="M77 83c10-8 16-19 19-31 7-7 14-7 18-2-5 13-13 25-25 33-5 3-9 3-12 0Z" fill="#913d2d"/>
+<path d="M96 53c-1-5 0-9 4-13 4 2 6 5 6 9" fill="none" stroke="#496b48" stroke-width="2.2" stroke-linecap="round"/>
+<text x="60" y="76" text-anchor="middle" fill="#f8f1e4" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="42" letter-spacing="-3">K</text>
+</svg>
