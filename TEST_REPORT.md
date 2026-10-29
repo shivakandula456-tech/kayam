@@ -207,3 +207,13 @@ A fresh browser screenshot sweep and live Supabase integration test were not run
 - Added vector KAYAM SPICES wordmark variants and a standalone monogram for storefront and administrator branding.
 - Source checks confirmed the original desktop/mobile hero video asset paths remain unchanged and the new mobile quick-navigation labels are Home, Shop, Search and Bag.
 - The public stylesheet's CSS brace counts are balanced. Actual image network requests, keyboard/screen-reader checks, and rendered desktop/mobile screenshot review remain outstanding; the site is hosted on GitHub Pages and catalogue stock images still depend on the Pexels CDN.
+
+
+## Transparent hero navigation and autoplay refinement — 30 October 2026
+
+- Homepage shared header mount is positioned over the existing hero so the announcement and main navigation overlay the video rather than reserving a cream strip above it.
+- Announcement and navigation use translucent deep-forest glass with blur and ivory/gold text. On scroll, the announcement hides and the compact dark-glass navigation remains fixed.
+- The main header uses the light vector wordmark over the video; the drawer keeps the dark wordmark on its parchment surface.
+- Removed the visible hero play/pause control from homepage markup and its click-handler logic.
+- Hero video has autoplay/muted/playsinline/loop attributes and JavaScript attempts playback on load, media readiness, and return to a visible tab. If a browser blocks autoplay or media fails, the poster remains available. Browser policy can still prevent guaranteed autoplay.
+- Original desktop and mobile video source paths remain unchanged. JavaScript syntax and CSS brace checks passed; rendered screenshot validation remains outstanding.

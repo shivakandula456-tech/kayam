@@ -326,7 +326,7 @@
       <header class="site-header">
         <div class="container--wide header-inner">
           <a class="brand" href="index.html" aria-label="KAYAM SPICES home">
-            <img class="brand__logo" src="assets/images/kayam-wordmark.svg" alt="KAYAM SPICES" width="460" height="118" decoding="async">
+            <img class="brand__logo brand__logo--header" src="assets/images/kayam-wordmark-light.svg" alt="KAYAM SPICES" width="460" height="118" decoding="async">
           </a>
           <nav class="primary-nav" aria-label="Primary navigation">
             <ul class="primary-nav__list">${navMarkup}</ul>
@@ -429,8 +429,11 @@
       document.body.classList.toggle("has-mobile-bottom-nav", Boolean(headerMount.querySelector(".mobile-bottom-nav")));
       const stickyHeader = headerMount.querySelector(".site-header");
       if (stickyHeader) {
+        const isHome = document.body.dataset.page === "home";
         const updateHeaderState = function () {
-          stickyHeader.classList.toggle("is-scrolled", window.scrollY > 24);
+          const scrolled = window.scrollY > 24;
+          stickyHeader.classList.toggle("is-scrolled", scrolled);
+          headerMount.classList.toggle("is-fixed", isHome && scrolled);
         };
         updateHeaderState();
         window.addEventListener("scroll", updateHeaderState, { passive: true });
@@ -540,61 +543,50 @@
     const video = document.querySelector("[data-hero-video]");
     if (!video) return;
     const hero = video.closest(".hero");
-    const control = hero ? hero.querySelector("[data-hero-media-control]") : null;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const saveData = Boolean(connection && (connection.saveData || /(^|-)2g$/.test(connection.effectiveType || "")));
     const isMobile = window.matchMedia("(max-width: 899px)").matches;
     const source = isMobile && video.dataset.mobileSrc ? video.dataset.mobileSrc : video.dataset.desktopSrc;
     if (!source) return;
+
+    // Silent, inline, looping ambient film. Autoplay is attempted on each load;
+    // individual browser settings may still block playback.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("autoplay", "");
+    video.setAttribute("loop", "");
+    video.preload = "auto";
+
     video.addEventListener("error", function () {
+      video.classList.remove("is-ready");
       if (hero) hero.classList.add("hero--video-failed");
     });
-    video.src = source;
-    video.setAttribute("aria-label", "Traditional Indian spice preparation film");
-
-    function updateControl() {
-      if (!control) return;
-      const isPlaying = !video.paused && !video.ended;
-      control.innerHTML = isPlaying
-        ? `${icon("pause")}<span>Pause film</span>`
-        : `${icon("play")}<span>Play film</span>`;
-      control.setAttribute("aria-label", isPlaying ? "Pause background film" : "Play background film");
-    }
-
     video.addEventListener("playing", function () {
       video.classList.add("is-ready");
-      updateControl();
+      if (hero) hero.classList.remove("hero--video-failed");
     });
-    video.addEventListener("play", updateControl);
-    video.addEventListener("pause", updateControl);
-    video.addEventListener("ended", updateControl);
-    updateControl();
+    video.src = source;
 
-    if (!reducedMotion && !saveData) {
-      video.autoplay = true;
-      video.play().catch(function () {
-        video.classList.remove("is-ready");
-        updateControl();
-      });
-    }
-    if (control) {
-      control.addEventListener("click", function () {
-        if (video.paused) {
-          video.play().then(function () {
-            video.classList.add("is-ready");
-          }).catch(function () {
-            showToast("The film could not play in this browser. The still image remains available.", "error");
-          });
-        } else {
-          video.pause();
-        }
-      });
-    }
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden && !video.paused) {
-        video.pause();
+    function attemptPlayback() {
+      if (document.hidden || !video.paused || video.error) return;
+      const attempt = video.play();
+      if (attempt && typeof attempt.catch === "function") {
+        attempt.catch(function () {
+          // Leave the poster visible when autoplay is blocked. There is intentionally
+          // no visible play/pause control over the cinematic hero.
+          video.classList.remove("is-ready");
+        });
       }
+    }
+
+    attemptPlayback();
+    video.addEventListener("loadeddata", attemptPlayback, { once: true });
+    window.addEventListener("pageshow", attemptPlayback);
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) attemptPlayback();
     });
   }
 
