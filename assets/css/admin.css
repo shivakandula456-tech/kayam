@@ -1843,3 +1843,32 @@ body.admin-booting {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Heritage Apothecary brand assets: SVGs stay crisp on high-density screens. */
+.admin-sidebar__brand img {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: 0;
+  object-fit: contain;
+  box-shadow: none;
+}
+.admin-boot__panel img {
+  width: 72px;
+  height: 72px;
+  border-radius: 0;
+  object-fit: contain;
+  box-shadow: none;
+}
+.admin-login__brand {
+  gap: 1rem;
+}
+.admin-login__brand img {
+  width: clamp(180px, 20vw, 230px);
+  height: auto;
+  max-height: 66px;
+  border-radius: 0;
+  object-fit: contain;
+  box-shadow: none;
+}

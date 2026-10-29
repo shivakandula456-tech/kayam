@@ -221,7 +221,7 @@
       .join("");
     return {
       sidebar: `<div class="admin-sidebar__brand">
-          <img src="../assets/images/kayam-logo-mark.jpg" alt="" width="44" height="48">
+          <img src="../assets/images/kayam-monogram.svg" alt="" width="44" height="48">
           <div><strong>KAYAM</strong><span>Spices admin</span></div>
         </div>
         <nav class="admin-nav" aria-label="Administrator navigation">
