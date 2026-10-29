@@ -1,6 +1,15 @@
 (function () {
   "use strict";
 
+  // Administrator pages use the same new vector brand monogram as the storefront.
+  if (document.head && !document.querySelector('link[rel="icon"][type="image/svg+xml"]')) {
+    const favicon = document.createElement("link");
+    favicon.rel = "icon";
+    favicon.type = "image/svg+xml";
+    favicon.href = "../assets/images/kayam-monogram.svg";
+    document.head.appendChild(favicon);
+  }
+
   const page = document.body.dataset.adminPage || "";
   const isLoginPage = page === "login";
   const icons = {

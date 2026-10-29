@@ -414,6 +414,14 @@
   }
 
   function initHeader() {
+    // Prefer the new vector monogram in browsers that support SVG favicons.
+    if (!document.querySelector('link[rel="icon"][type="image/svg+xml"]')) {
+      const favicon = document.createElement("link");
+      favicon.rel = "icon";
+      favicon.type = "image/svg+xml";
+      favicon.href = "assets/images/kayam-monogram.svg";
+      document.head.appendChild(favicon);
+    }
     const headerMount = document.getElementById("site-header");
     if (headerMount) {
       headerMount.innerHTML = renderHeader();
