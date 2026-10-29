@@ -3,22 +3,28 @@
 
   const Kayam = window.Kayam;
   function pexelsImageUrl(id, width) {
-    return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${width || 1400}`;
+    return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${width || 960}`;
+  }
+
+  function pexelsImageSrcSet(id, widths) {
+    return widths.map(function (width) {
+      return `${pexelsImageUrl(id, width)} ${width}w`;
+    }).join(", ");
   }
 
   const categoryImages = {
-    "spice-powders": { src: pexelsImageUrl(6808976, 1600), alt: "A colourful display of red, orange, and yellow spice powders in round bowls." },
-    "traditional-masalas": { src: pexelsImageUrl(4871347, 1600), alt: "A stone mortar and pestle with whole spices on a wooden surface." },
-    premixes: { src: pexelsImageUrl(5504609, 1600), alt: "Pyramids of coloured spice powders displayed at a spice market." },
-    "cooking-masalas": { src: pexelsImageUrl(20408461, 1600), alt: "An Indian curry dish served with bowls of spices and herbs." },
-    "podi-chutney-powders": { src: pexelsImageUrl(32144893, 1600), alt: "A bowl of ground spice blend surrounded by nuts and dried red chillies." },
+    "spice-powders": { id: 6808976, alt: "A colourful display of red, orange, and yellow spice powders in round bowls." },
+    "traditional-masalas": { id: 4871347, alt: "A stone mortar and pestle with whole spices on a wooden surface." },
+    premixes: { id: 5504609, alt: "Pyramids of coloured spice powders displayed at a spice market." },
+    "cooking-masalas": { id: 20408461, alt: "An Indian curry dish served with bowls of spices and herbs." },
+    "podi-chutney-powders": { id: 32144893, alt: "A bowl of ground spice blend surrounded by nuts and dried red chillies." },
   };
 
   function categoryMarkup(category, count) {
     const image = categoryImages[category.slug] || categoryImages["spice-powders"];
     const countLabel = count === 1 ? "1 product" : `${count} products`;
     return `<a class="category-card" href="shop.html?category=${encodeURIComponent(category.slug)}" data-reveal>
-      <img src="${Kayam.escapeHTML(image.src)}" alt="${Kayam.escapeHTML(image.alt)}" width="900" height="600" loading="lazy" decoding="async">
+      <img src="${Kayam.escapeHTML(pexelsImageUrl(image.id, 960))}" srcset="${Kayam.escapeHTML(pexelsImageSrcSet(image.id, [320, 480, 640, 960, 1200]))}" sizes="(max-width: 899px) 78vw, (max-width: 1199px) 32vw, 20vw" alt="${Kayam.escapeHTML(image.alt)}" width="900" height="600" loading="lazy" decoding="async">
       <span class="category-card__content">
         <span class="category-card__count">${Kayam.escapeHTML(countLabel)}</span>
         <span class="category-card__title">${Kayam.escapeHTML(category.name)}</span>

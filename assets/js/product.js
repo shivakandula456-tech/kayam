@@ -31,6 +31,15 @@
     link.href = url;
   }
 
+  function responsivePexelsAttrs(url, sizes, widths) {
+    const match = String(url || "").match(/images[.]pexels[.]com[/]photos[/]([0-9]+)[/]pexels-photo-[0-9]+[.]jpeg/i);
+    if (!match) return "";
+    const candidates = (widths || [320, 480, 800, 1200]).map(function (width) {
+      return `https://images.pexels.com/photos/${match[1]}/pexels-photo-${match[1]}.jpeg?auto=compress&cs=tinysrgb&w=${width} ${width}w`;
+    }).join(", ");
+    return `srcset="${Kayam.escapeHTML(candidates)}" sizes="${Kayam.escapeHTML(sizes || "100vw")}"`;
+  }
+
   function setStructuredData(data) {
     let script = document.getElementById("product-structured-data");
     if (!script) {
@@ -99,7 +108,7 @@
           ${images
             .map(function (image, index) {
               return `<button class="product-gallery__thumb" type="button" data-gallery-index="${index}" aria-pressed="${index === 0 ? "true" : "false"}" aria-label="View image ${index + 1}">
-                <img src="${Kayam.escapeHTML(image.url)}" alt="" width="180" height="220" loading="lazy" data-fallback="${Kayam.Catalogue.placeholder}">
+                <img src="${Kayam.escapeHTML(image.url)}" ${responsivePexelsAttrs(image.url, "110px", [160, 240, 320, 480])} alt="" width="180" height="220" loading="lazy" data-fallback="${Kayam.Catalogue.placeholder}">
               </button>`;
             })
             .join("")}
@@ -107,7 +116,7 @@
       : "";
     return `<div class="product-gallery">
       <div class="product-gallery__main">
-        <img id="product-main-image" src="${Kayam.escapeHTML(main.url)}" alt="${Kayam.escapeHTML(
+        <img id="product-main-image" src="${Kayam.escapeHTML(main.url)}" ${responsivePexelsAttrs(main.url, "(max-width: 899px) 100vw, (max-width: 1299px) 50vw, 720px", [480, 640, 800, 1200, 1600])} alt="${Kayam.escapeHTML(
           main.altText || product.name,
         )}" width="900" height="1125" fetchpriority="high" data-fallback="${Kayam.Catalogue.placeholder}">
         <span class="product-card__badges" id="product-main-badges">

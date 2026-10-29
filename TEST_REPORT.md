@@ -184,7 +184,7 @@ A fresh browser screenshot sweep and live Supabase integration test were not run
 ## Premium Heritage 2.0 UI refresh — 28 October 2026
 
 - Source parsing passed for updated `assets/js/common.js` and `assets/js/shop.js`.
-- Checked the new responsive navigation structure contains all five category routes, all four mobile quick-navigation actions, active-page semantics for Home/Shop/Bag, and a cart-count hook.
+- Checked responsive navigation contains all five category routes, the Home / Shop / Search / Bag mobile quick-navigation actions, active-page semantics, and the cart-count hook.
 - Reviewed responsive CSS changes for desktop/tablet/mobile breakpoints, safe-area spacing on mobile, reduced-motion handling and mobile toast placement above the fixed navigation.
 - Added conditional shop controls so price-range/availability filters do not appear without product variants, and price/newest sorting is unavailable until matching data exists.
 - Visual browser QA at real viewport widths and keyboard/screen-reader testing remain outstanding; source checks alone do not establish rendered layout quality.
@@ -198,3 +198,12 @@ A fresh browser screenshot sweep and live Supabase integration test were not run
 - Added `IMAGE_SOURCE_MANIFEST.md` with image placement, creator, Pexels source page and licence reference.
 - Source-level checks: JavaScript syntax checks; unique-source-ID check; no repeated hero-frame/category SVG references in public source; five category mappings; 11 product mappings and three story image references.
 - Browser rendering, live image-network requests and mobile/desktop crop review remain outstanding; Pexels CDN availability is external to GitHub Pages.
+
+
+## Heritage Apothecary brand and responsive image update — 30 October 2026
+
+- JavaScript source parsing passed for the updated catalogue, category renderer, product gallery and shared navigation.
+- Added responsive Pexels image candidates and `sizes` attributes for catalogue cards, category tiles, and Pexels-backed product-detail galleries. Non-Pexels/Supabase image URLs remain supported without an unnecessary `srcset`.
+- Added vector KAYAM SPICES wordmark variants and a standalone monogram for storefront and administrator branding.
+- Source checks confirmed the original desktop/mobile hero video asset paths remain unchanged and the new mobile quick-navigation labels are Home, Shop, Search and Bag.
+- The public stylesheet's CSS brace counts are balanced. Actual image network requests, keyboard/screen-reader checks, and rendered desktop/mobile screenshot review remain outstanding; the site is hosted on GitHub Pages and catalogue stock images still depend on the Pexels CDN.

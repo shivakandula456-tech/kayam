@@ -267,8 +267,22 @@
     return product.availableVariants[0] || product.variants[0] || null;
   }
 
+  function responsivePexelsAttrs(url, sizes, widths) {
+    const match = String(url || "").match(/images[.]pexels[.]com[/]photos[/]([0-9]+)[/]pexels-photo-[0-9]+[.]jpeg/i);
+    if (!match) return "";
+    const candidates = (widths || [320, 480, 800, 1200]).map(function (width) {
+      return `https://images.pexels.com/photos/${match[1]}/pexels-photo-${match[1]}.jpeg?auto=compress&cs=tinysrgb&w=${width} ${width}w`;
+    }).join(", ");
+    return `srcset="${Kayam.escapeHTML(candidates)}" sizes="${Kayam.escapeHTML(sizes || "100vw")}"`;
+  }
+
   function cardImageAttributes(product) {
-    return `src="${Kayam.escapeHTML(product.imageUrl)}" alt="${Kayam.escapeHTML(
+    const responsive = responsivePexelsAttrs(
+      product.imageUrl,
+      "(max-width: 599px) 46vw, (max-width: 899px) 30vw, (max-width: 1199px) 22vw, 18vw",
+      [320, 480, 640, 800, 1200],
+    );
+    return `src="${Kayam.escapeHTML(product.imageUrl)}" ${responsive} alt="${Kayam.escapeHTML(
       product.primaryImage && product.primaryImage.altText ? product.primaryImage.altText : `${product.name} from KAYAM SPICES`,
     )}" width="800" height="1000" loading="lazy" decoding="async" data-fallback="${PLACEHOLDER_IMAGE}"`;
   }

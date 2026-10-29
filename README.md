@@ -17,7 +17,7 @@ collected by this website.
   authentication, order, and admin operations are not yet connected.
 - While Supabase is unconfigured, the storefront uses a local 11-product catalogue with five categories. Prices, weights, stock and ingredients remain unconfigured; Add to Cart stays unavailable until real variants are published.
 - Product/category photography is mapped in `assets/js/catalogue.js` and `assets/js/home.js`; stock sources and licence notes are recorded in `IMAGE_SOURCE_MANIFEST.md`. Product photos are ingredient/food-context photography, not photos of finished KAYAM packaging.
-- When Supabase is configured, its live catalogue is authoritative. A configured-but-failing request shows an error rather than falling back to stale static data. Local artwork remains a temporary image fallback until a live product image is uploaded.
+- When Supabase is configured, its live catalogue is authoritative. A configured-but-failing request shows an error rather than falling back to stale static data. Until approved product images are uploaded, catalogue entries use temporary Pexels food/ingredient photography.
 - Product weights, prices, stock, descriptions, ingredients, and images have not been
   fabricated. Add confirmed business data through the administrator area.
 - The production URL is not known yet, so canonical URLs, absolute social images,
@@ -214,7 +214,7 @@ console messages, and remaining unverified paths.
 
 - The shared public header uses a sticky outer mount so the announcement can scroll off while the navigation remains available; dismissing the announcement restores the header's correct sticky offset.
 - Added a desktop Shop category mega-menu and a category group inside the mobile drawer.
-- Added a mobile-only, fixed quick-navigation bar for Home, Shop, WhatsApp and Bag, with safe-area padding and cart-count support.
+- Added a mobile-only, fixed quick-navigation bar for Home, Shop, Search and Bag, with safe-area padding, cart-count support, and WhatsApp retained in the header/menu and relevant enquiry flows.
 - Polished header scroll state, interactions, category cards, product cards, search fields, and responsive shop toolbar spacing.
 - The shop filter panel and price/newest sort choices are hidden or reset when the catalogue does not yet contain the data those controls require.
 - No framework, build step, custom backend or database changes were added.
@@ -227,3 +227,13 @@ console messages, and remaining unverified paths.
 - Replaced the old story images, including the visible hero-frame image. The homepage story and two story-page photographs now each use a different stock photo, none from the hero film.
 - Stock image URLs are served from the Pexels CDN with image-resizing/compression parameters. Creator, source page, usage and licence reference are tracked in `IMAGE_SOURCE_MANIFEST.md`.
 - These photos represent ingredients or food context, not KAYAM-branded packages or a verified recipe formula. The Groundnut Chutney Powder stock photo depicts whole groundnuts as an ingredient reference.
+
+
+## Heritage Apothecary redesign — 30 October 2026
+
+- Replaced the cropped JPEG header/footer lockup with a custom vector KAYAM SPICES wordmark, a light footer/admin variant and a compact botanical monogram.
+- Applied a coordinated parchment, deep forest, antique gold, spice red and roasted-brown design system across the public storefront, including navigation, hero overlay, category cards, product cards, product details, filters, forms, order panels, story sections, footer and responsive mobile navigation.
+- Kept the existing desktop/mobile hero video assets and their JavaScript controls unchanged.
+- The mobile bottom navigation is now Home / Shop / Search / Bag. WhatsApp remains reachable from the header/menu and product/order enquiry routes.
+- Product and category photo references now use responsive Pexels `srcset` and `sizes` candidates, allowing mobile devices to request smaller image variants.
+- Source-level parsing and markup checks passed; rendered browser screenshot review remains outstanding. The Pexels image references are still remotely delivered and should be self-hosted once final photography is approved.
