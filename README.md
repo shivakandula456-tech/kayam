@@ -237,3 +237,10 @@ console messages, and remaining unverified paths.
 - The mobile bottom navigation is now Home / Shop / Search / Bag. WhatsApp remains reachable from the header/menu and product/order enquiry routes.
 - Product and category photo references now use responsive Pexels `srcset` and `sizes` candidates, allowing mobile devices to request smaller image variants.
 - Source-level parsing and markup checks passed; rendered browser screenshot review remains outstanding. The Pexels image references are still remotely delivered and should be self-hosted once final photography is approved.
+
+
+## Courtyard hero media replacement — 30 October 2026
+
+- Prepared the existing hero asset paths for the new 10-second spice-courtyard clip. The desktop asset stays 16:9; the dedicated mobile asset uses a 9:16 central crop around the spice table and stone-grinding activity.
+- Desktop and mobile posters are selected separately. The mobile poster is only applied if it loads successfully; older deployments fall back to the desktop poster.
+- The video files are silent H.264 MP4s at 24 fps with fast-start metadata. The existing source video paths remain unchanged, so replacing the binaries does not require catalogue or commerce changes.

@@ -542,13 +542,19 @@
   function initHeroVideo() {
     const video = document.querySelector("[data-hero-video]");
     if (!video) return;
-    const hero = video.closest(".hero");
-    const isMobile = window.matchMedia("(max-width: 899px)").matches;
-    const source = isMobile && video.dataset.mobileSrc ? video.dataset.mobileSrc : video.dataset.desktopSrc;
-    if (!source) return;
 
-    // Silent, inline, looping ambient film. Autoplay is attempted on each load;
-    // individual browser settings may still block playback.
+    const hero = video.closest(".hero");
+    const fallback = hero ? hero.querySelector("[data-hero-fallback]") : null;
+    const viewport = window.matchMedia("(max-width: 899px)");
+    const desktopSource = video.dataset.desktopSrc || "";
+    const mobileSource = video.dataset.mobileSrc || desktopSource;
+    const desktopPoster = video.dataset.desktopPoster || video.poster || "";
+    const mobilePoster = video.dataset.mobilePoster || desktopPoster;
+
+    if (!desktopSource) return;
+
+    // Silent, inline, looping ambience. Autoplay is attempted on load and when
+    // media becomes ready or the page returns to the foreground.
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
@@ -560,6 +566,45 @@
     video.setAttribute("loop", "");
     video.preload = "auto";
 
+    let posterRequest = 0;
+    function applyPoster(path) {
+      if (!path) return;
+      video.poster = path;
+      if (fallback) fallback.style.backgroundImage = 'url("' + path + '")';
+    }
+
+    function selectPoster() {
+      const requested = viewport.matches ? mobilePoster : desktopPoster;
+      const safeDefault = desktopPoster || video.poster;
+      if (!requested || requested === safeDefault) {
+        applyPoster(safeDefault);
+        return;
+      }
+
+      // Use the dedicated mobile poster only if it actually loads; older deploys
+      // remain safe and keep the desktop poster until the new asset is published.
+      const requestId = ++posterRequest;
+      const probe = new Image();
+      probe.onload = function () {
+        if (requestId === posterRequest && viewport.matches) applyPoster(requested);
+      };
+      probe.onerror = function () {
+        if (requestId === posterRequest) applyPoster(safeDefault);
+      };
+      probe.src = requested;
+    }
+
+    function attemptPlayback() {
+      if (document.hidden || !video.paused || video.error) return;
+      const attempt = video.play();
+      if (attempt && typeof attempt.catch === "function") {
+        attempt.catch(function () {
+          // The matching poster remains visible if a browser blocks autoplay.
+          video.classList.remove("is-ready");
+        });
+      }
+    }
+
     video.addEventListener("error", function () {
       video.classList.remove("is-ready");
       if (hero) hero.classList.add("hero--video-failed");
@@ -568,22 +613,24 @@
       video.classList.add("is-ready");
       if (hero) hero.classList.remove("hero--video-failed");
     });
-    video.src = source;
+    video.addEventListener("loadeddata", attemptPlayback);
+    video.addEventListener("canplay", attemptPlayback);
 
-    function attemptPlayback() {
-      if (document.hidden || !video.paused || video.error) return;
-      const attempt = video.play();
-      if (attempt && typeof attempt.catch === "function") {
-        attempt.catch(function () {
-          // Leave the poster visible when autoplay is blocked. There is intentionally
-          // no visible play/pause control over the cinematic hero.
-          video.classList.remove("is-ready");
-        });
-      }
+    function selectVideoSource() {
+      const source = viewport.matches ? mobileSource : desktopSource;
+      selectPoster();
+      if (!source || video.dataset.activeSrc === source) return;
+      video.dataset.activeSrc = source;
+      video.classList.remove("is-ready");
+      video.src = source;
+      video.load();
+      attemptPlayback();
     }
 
-    attemptPlayback();
-    video.addEventListener("loadeddata", attemptPlayback, { once: true });
+    selectVideoSource();
+    if (typeof viewport.addEventListener === "function") {
+      viewport.addEventListener("change", selectVideoSource);
+    }
     window.addEventListener("pageshow", attemptPlayback);
     document.addEventListener("visibilitychange", function () {
       if (!document.hidden) attemptPlayback();

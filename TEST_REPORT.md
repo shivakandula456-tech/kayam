@@ -217,3 +217,13 @@ A fresh browser screenshot sweep and live Supabase integration test were not run
 - Removed the visible hero play/pause control from homepage markup and its click-handler logic.
 - Hero video has autoplay/muted/playsinline/loop attributes and JavaScript attempts playback on load, media readiness, and return to a visible tab. If a browser blocks autoplay or media fails, the poster remains available. Browser policy can still prevent guaranteed autoplay.
 - Original desktop and mobile video source paths remain unchanged. JavaScript syntax and CSS brace checks passed; rendered screenshot validation remains outstanding.
+
+
+## New courtyard hero media wiring — 30 October 2026
+
+- Added separate desktop and mobile poster paths to the hero video markup while keeping the existing desktop/mobile video paths stable.
+- The hero bootstrap now selects video and poster based on the 899px breakpoint and updates both on viewport changes.
+- Mobile poster loading is probed before use, so a previous deployment without the new mobile poster safely falls back to the desktop poster.
+- Autoplay remains muted, inline and looping; playback attempts are repeated on media readiness, page-show, and tab visibility changes.
+- This source update prepares the site for the matching courtyard media assets. Binary MP4 and poster replacements are supplied separately in the hero-update bundle and must be copied into the repository before the new video becomes visible.
+- Source-level JavaScript parsing passed. Real browser and network playback checks remain pending.
